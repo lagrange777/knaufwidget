@@ -33,8 +33,6 @@ class KnaufWidgetTime : AppWidgetProvider() {
         appWidgetManager ?: return
         appWidgetIds ?: return
 
-
-
         appWidgetIds.forEach { appWidgetId ->
             val pendingPrevClickIntent: PendingIntent = Intent(context, javaClass).let {
                 it.action = ACTION_PREV_MONTH_CLICK
