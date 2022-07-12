@@ -1,65 +1,81 @@
 package com.vrt.knaufwidget
 
+import android.content.ContentUris
 import android.content.Context
+import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.net.Uri
+import android.provider.AlarmClock
+import android.provider.CalendarContract
+import androidx.core.content.ContextCompat.startActivity
 import java.util.*
 
-class KnaufMonth(context: Context, private val calendar: Calendar = Calendar.getInstance()) {
+
+const val TEST_CALENDAR_LINK = """https://calendar.google.com/calendar/u/0?cid=eWFtaXNoYXNoaXNoYUBnbWFpbC5jb20"""
+
+class KnaufMonth(
+    private val context: Context,
+    private val calendar: Calendar = Calendar.getInstance()
+) {
 
     companion object {
         val cellList: List<Int> = listOf(
-            R.id.textView50,
-            R.id.textView51,
-            R.id.textView52,
-            R.id.textView53,
-            R.id.textView54,
-            R.id.textView55,
-            R.id.textView56,
-            R.id.textView58,
-            R.id.textView59,
-            R.id.textView60,
-            R.id.textView61,
-            R.id.textView62,
-            R.id.textView63,
-            R.id.textView64,
-            R.id.textView66,
-            R.id.textView67,
-            R.id.textView68,
-            R.id.textView69,
-            R.id.textView70,
-            R.id.textView71,
-            R.id.textView72,
-            R.id.textView74,
-            R.id.textView75,
-            R.id.textView76,
-            R.id.textView77,
-            R.id.textView78,
-            R.id.textView79,
-            R.id.textView80,
-            R.id.textView82,
-            R.id.textView83,
-            R.id.textView84,
-            R.id.textView85,
-            R.id.textView86,
-            R.id.textView87,
-            R.id.textView88,
-            R.id.textView90,
-            R.id.textView91,
-            R.id.textView92,
-            R.id.textView93,
-            R.id.textView94,
-            R.id.textView95,
-            R.id.textView96
-        )
+            R.id.day1,
+            R.id.day2,
+            R.id.day3,
+            R.id.day4,
+            R.id.day5,
+            R.id.day6,
+            R.id.day7,
 
+            R.id.day8,
+            R.id.day9,
+            R.id.day10,
+            R.id.day11,
+            R.id.day12,
+            R.id.day13,
+            R.id.day14,
+
+            R.id.day15,
+            R.id.day16,
+            R.id.day17,
+            R.id.day18,
+            R.id.day19,
+            R.id.day20,
+            R.id.day21,
+
+            R.id.day22,
+            R.id.day23,
+            R.id.day24,
+            R.id.day25,
+            R.id.day26,
+            R.id.day27,
+            R.id.day28,
+
+            R.id.day29,
+            R.id.day30,
+            R.id.day31,
+            R.id.day32,
+            R.id.day33,
+            R.id.day34,
+            R.id.day35,
+
+            R.id.day36,
+            R.id.day37,
+            R.id.day38,
+            R.id.day39,
+            R.id.day40,
+            R.id.day41,
+            R.id.day42
+        )
         val weeksCellsList: List<Int> = listOf(
-            R.id.textView49,
-            R.id.textView57,
-            R.id.textView65,
-            R.id.textView73,
-            R.id.textView81,
-            R.id.textView89
+            R.id.week1,
+            R.id.week2,
+            R.id.week3,
+            R.id.week4,
+            R.id.week5,
+            R.id.week6
         )
-
         val monthNames: List<String> = listOf(
             "Январь",
             "Февраль",
@@ -77,20 +93,33 @@ class KnaufMonth(context: Context, private val calendar: Calendar = Calendar.get
 
     }
 
+    val curTitle: String
+        get() = run {
+            val m = calendar.get(Calendar.MONTH).apply { monthNames[this] }
+            val y = calendar.get(Calendar.YEAR).toString()
+            "${monthNames[m]} $y"
+        }
+
     val days: MutableList<KnaufDay>
         get() = getAllDays()
 
     val weeksRange: List<Int>
         get() = run {
             val res = mutableListOf<Int>()
-            val c = Calendar.getInstance()
-            c.set(Calendar.DAY_OF_MONTH, daysInMonth)
-            val endRange = c.get(Calendar.WEEK_OF_YEAR)
-            c.set(Calendar.DAY_OF_MONTH, 1)
-            val startRange = c.get(Calendar.WEEK_OF_YEAR)
+
+            calendar.set(Calendar.DAY_OF_MONTH, daysInMonth)
+            val endRange = if (calendar.get(Calendar.WEEK_OF_YEAR) == 1) calendar.weeksInWeekYear else calendar.get(Calendar.WEEK_OF_YEAR)
+            calendar.set(Calendar.DAY_OF_MONTH, 1)
+            val startRange = calendar.get(Calendar.WEEK_OF_YEAR)
+            println("WEEKS $startRange $endRange ${calendar.weeksInWeekYear}")
             (startRange..endRange).forEach { i ->  res.add(i) }
             res
         }
+
+    private val daysInMonth
+        get() = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+    private val firstDay
+        get() = calendar.get(Calendar.DAY_OF_WEEK)
 
     init {
         val saved = SettingsHelper.getSavedCalendarState(context)
@@ -99,14 +128,15 @@ class KnaufMonth(context: Context, private val calendar: Calendar = Calendar.get
         calendar.set(Calendar.DAY_OF_MONTH, 1)
     }
 
-    private val daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
-    private val firstDay = calendar.get(Calendar.DAY_OF_WEEK)
-
     private fun getAllDays(): MutableList<KnaufDay> {
         val days = mutableListOf<KnaufDay>()
+        val calendarResolver = Utility()
+        val calDays = calendarResolver.readCalendarEvent(context)
+
         days.addAll(getOutOfRangeDays())
         (1..daysInMonth).forEach { index ->
-            val kDay = KnaufDay(index)
+            val isMarked = calDays.any { it.day ==  index && it.month == calendar.get(Calendar.MONTH) + 1 && it.year == calendar.get(Calendar.YEAR) }
+            val kDay = KnaufDay(index, isMarked)
             kDay.cellID = cellList[days.count()]
             days.add(kDay)
         }
@@ -119,7 +149,7 @@ class KnaufMonth(context: Context, private val calendar: Calendar = Calendar.get
         if (rangeEnd < 0)
             rangeEnd += 7
         (0 until rangeEnd).forEach { index ->
-            val kDay = KnaufDay(0)
+            val kDay = KnaufDay(0, false)
             kDay.cellID = cellList[index]
             days.add(kDay)
         }
@@ -127,11 +157,26 @@ class KnaufMonth(context: Context, private val calendar: Calendar = Calendar.get
     }
 }
 
-data class KnaufDay(val number: Int) {
+data class KnaufDay(val number: Int, val isMarked: Boolean) {
     var cellID: Int = 0
     val title: String
         get() = if (number == 0) "" else number.toString()
 
 }
 
+fun startNativeCalendar(context: Context) {
+    val builder: Uri.Builder = CalendarContract.CONTENT_URI.buildUpon()
+    builder.appendPath("time")
+    ContentUris.appendId(builder, Calendar.getInstance().timeInMillis)
+    val intent = Intent(Intent.ACTION_VIEW)
+        .setData(builder.build())
+    intent.flags = FLAG_ACTIVITY_NEW_TASK
+    startActivity(context, intent, null)
+}
+
+fun startClock(context: Context) {
+    val mClockIntent = Intent(AlarmClock.ACTION_SHOW_ALARMS)
+    mClockIntent.flags = FLAG_ACTIVITY_NEW_TASK
+    startActivity(context, mClockIntent, null)
+}
 

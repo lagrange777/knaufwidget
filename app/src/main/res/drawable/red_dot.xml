@@ -5,16 +5,5 @@
             <solid android:color="@color/meeting_dot" android:gravity="left"/>
         </shape>
     </item>
-    <item android:width="6dp" android:height="6dp" android:left="9dp">
-        <shape android:shape="oval">
-            <solid android:color="@color/birthdays_dot" android:gravity="center"/>
-        </shape>
-    </item>
-
-    <item android:width="6dp" android:height="6dp" android:left="18dp">
-        <shape android:shape="oval">
-            <solid android:color="@color/holidays_dot" android:gravity="right"/>
-        </shape>
-    </item>
 
 </layer-list>

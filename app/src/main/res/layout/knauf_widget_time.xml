@@ -66,7 +66,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_vector" />
+                app:srcCompat="@drawable/ic_main_logo" />
         </LinearLayout>
     </LinearLayout>
 
@@ -378,584 +378,584 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView49"
+            android:id="@+id/week1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif-black"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="W1"
             android:textAlignment="center"
             android:textColor="@color/schema_1_week_number"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView50"
+            android:id="@+id/day1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D1"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:drawableBottomCompat="@drawable/red_dot" />
 
         <TextView
-            android:id="@+id/textView51"
+            android:id="@+id/day2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D2"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView52"
+            android:id="@+id/day3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D3"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView53"
+            android:id="@+id/day4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D4"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView54"
+            android:id="@+id/day5"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D5"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView55"
+            android:id="@+id/day6"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D6"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView56"
+            android:id="@+id/day7"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D7"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView57"
+            android:id="@+id/week2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif-black"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="W2"
             android:textAlignment="center"
             android:textColor="@color/schema_1_week_number"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView58"
+            android:id="@+id/day8"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D8"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView59"
+            android:id="@+id/day9"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D9"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView60"
+            android:id="@+id/day10"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D10"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView61"
+            android:id="@+id/day11"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D11"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView62"
+            android:id="@+id/day12"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D12"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView63"
+            android:id="@+id/day13"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D13"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView64"
+            android:id="@+id/day14"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D14"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView65"
+            android:id="@+id/week3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif-black"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="W3"
             android:textAlignment="center"
             android:textColor="@color/schema_1_week_number"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView66"
+            android:id="@+id/day15"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D15"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView67"
+            android:id="@+id/day16"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D16"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView68"
+            android:id="@+id/day17"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D17"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView69"
+            android:id="@+id/day18"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D18"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView70"
+            android:id="@+id/day19"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D19"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView71"
+            android:id="@+id/day20"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D20"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView72"
+            android:id="@+id/day21"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D21"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView73"
+            android:id="@+id/week4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif-black"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="W4"
             android:textAlignment="center"
             android:textColor="@color/schema_1_week_number"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView74"
+            android:id="@+id/day22"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D22"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView75"
+            android:id="@+id/day23"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D23"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView76"
+            android:id="@+id/day24"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D24"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView77"
+            android:id="@+id/day25"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D25"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView78"
+            android:id="@+id/day26"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D26"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView79"
+            android:id="@+id/day27"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D27"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView80"
+            android:id="@+id/day28"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D28"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView81"
+            android:id="@+id/week5"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif-black"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="W5"
             android:textAlignment="center"
             android:textColor="@color/schema_1_week_number"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView82"
+            android:id="@+id/day29"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D29"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView83"
+            android:id="@+id/day30"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D30"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView84"
+            android:id="@+id/day31"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D31"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView85"
+            android:id="@+id/day32"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D32"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView86"
+            android:id="@+id/day33"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D33"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView87"
+            android:id="@+id/day34"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D34"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView88"
+            android:id="@+id/day35"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D35"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView89"
+            android:id="@+id/week6"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:fontFamily="sans-serif-black"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="W6"
             android:textAlignment="center"
             android:textColor="@color/schema_1_week_number"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView90"
+            android:id="@+id/day36"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D36"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView91"
+            android:id="@+id/day37"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D37"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView92"
+            android:id="@+id/day38"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D38"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView93"
+            android:id="@+id/day39"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D39"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView94"
+            android:id="@+id/day40"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D40"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView95"
+            android:id="@+id/day41"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D41"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView96"
+            android:id="@+id/day42"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="22"
+            android:text="D42"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />

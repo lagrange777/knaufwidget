@@ -43,8 +43,10 @@ class KnaufWidgetTime : AppWidgetProvider() {
         appWidgetIds.forEach { appWidgetId ->
             println("ONUPDATE 2")
 
-            val pendingPrevClickIntent = buildIntent(IntentType.PrevClick, appWidgetId, context, javaClass)
-            val pendingNextClickIntent = buildIntent(IntentType.NextClick, appWidgetId, context, javaClass)
+            val pendingPrevClickIntent = buildIntent(IntentType.PrevClick, appWidgetId, context, javaClass, appWidgetId.toString())
+            val pendingNextClickIntent = buildIntent(IntentType.NextClick, appWidgetId, context, javaClass, appWidgetId.toString())
+            val pendingOpenCalendarIntent = buildIntent(IntentType.OpenCalendar, appWidgetId, context, javaClass)
+            val pendingOpenClockIntent = buildIntent(IntentType.OpenClock, appWidgetId, context, javaClass)
 
             val views = RemoteViews(context.packageName, R.layout.knauf_widget_time)
             val w = appWidgetManager.getAppWidgetOptions(appWidgetId)
@@ -53,11 +55,15 @@ class KnaufWidgetTime : AppWidgetProvider() {
                 .getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT)
             scaleText(views, w, getCurDateForClock())
             resolveVisibility(h, views)
+            updateCalendar(context, appWidgetId)
 
+
+            views.setOnClickPendingIntent(R.id.clockContainer, pendingOpenClockIntent)
+            views.setOnClickPendingIntent(R.id.calendarContainer, pendingOpenCalendarIntent)
             views.setOnClickPendingIntent(R.id.prevMonthBtn, pendingPrevClickIntent)
             views.setOnClickPendingIntent(R.id.nextMonthBtn, pendingNextClickIntent)
 
-            views.setImageViewResource(R.id.imageView2, R.drawable.ic_vector)
+            views.setImageViewResource(R.id.imageView2, R.drawable.ic_main_logo)
             views.setImageViewResource(R.id.prevMonthBtn, R.drawable.ic_arrow_back)
             views.setImageViewResource(R.id.nextMonthBtn, R.drawable.ic_arrow_forward)
 
@@ -76,22 +82,19 @@ class KnaufWidgetTime : AppWidgetProvider() {
         appWidgetManager ?: return
         newOptions ?: return
 
+        val u = Utility()
+        u.readCalendarEvent(context)
+
         val remoteViews = RemoteViews(context.packageName, R.layout.knauf_widget_time)
 
         val maxHeight = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT)
         val maxWidth = newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH)
 
-        remoteViews.setImageViewResource(R.id.imageView2, R.drawable.ic_vector)
+        remoteViews.setImageViewResource(R.id.imageView2, R.drawable.ic_main_logo)
         resolveVisibility(maxHeight, remoteViews)
         scaleText(remoteViews, maxWidth, getCurDateForClock())
 
-        updateCalendar(context, remoteViews)
-
-        remoteViews.setTextViewCompoundDrawables(R.id.textView49, 0, 0, 0, R.drawable.red_dot)
-        remoteViews.setTextViewCompoundDrawables(R.id.textView50, 0, 0, 0, R.drawable.red_dot)
-        remoteViews.setTextViewCompoundDrawables(R.id.textView51, 0, 0, 0, R.drawable.red_dot)
-        remoteViews.setTextViewCompoundDrawables(R.id.textView52, 0, 0, 0, R.drawable.red_dot)
-        remoteViews.setTextViewCompoundDrawables(R.id.textView53, 0, 0, 0, R.drawable.red_dot)
+        updateCalendar(context, appWidgetId)
 
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
 
@@ -105,20 +108,73 @@ class KnaufWidgetTime : AppWidgetProvider() {
         super.onReceive(context, intent)
         context ?: return
         val action = intent?.action ?: return
+
+
+        if (action == IntentType.NextClick.ACTION_NEXT_MONTH_CLICK) {
+            SettingsHelper.getSavedCalendarState(context).apply {
+                var newY = second
+                val newM = if (first + 1 <= 11) first + 1 else {
+                    newY += 1
+                    0
+                }
+                println("ONRECIEVE $newM $newY")
+                SettingsHelper.saveCurrentCalendarState(context, newM, newY)
+            }
+            val wID = intent.getStringExtra(IntentType.PrevClick.WIDGET_INFO_ID) ?: return
+            updateCalendar(context, wID.toInt())
+        }
+        if (action == IntentType.PrevClick.ACTION_PREV_MONTH_CLICK) {
+            SettingsHelper.getSavedCalendarState(context).apply {
+                var newY = second
+                val newM = if (first - 1 >= 0) first - 1 else {
+                    newY -= 1
+                    11
+                }
+                SettingsHelper.saveCurrentCalendarState(context, newM, newY)
+            }
+            val wID = intent.getStringExtra(IntentType.PrevClick.WIDGET_INFO_ID) ?: return
+            updateCalendar(context, wID.toInt())
+        }
+
+        if(action == IntentType.OpenCalendar.ACTION_OPEN_NATIVE_CALENDAR) {
+            startNativeCalendar(context)
+        }
+
+        if(action == IntentType.OpenClock.ACTION_OPEN_CLOCK) {
+            startClock(context)
+        }
+
         val fxInfoString = intent.getStringExtra(IntentType.NewFX.FX_INFO_KEY) ?: return
         val fxInfo : FXEntity = JSONObject(fxInfoString).toClassObject()
         fillInfo(fxInfo, context)
     }
 }
 
+private fun updateCalendar(context: Context, widgetID: Int) {
+    val remoteViews = RemoteViews(context.packageName, R.layout.knauf_widget_time)
+    updateCalendar(context, remoteViews)
+    AppWidgetManager.getInstance(context).updateAppWidget(widgetID, remoteViews)
+}
+
 private fun updateCalendar(context: Context, remoteViews: RemoteViews) {
     val helper = KnaufMonth(context)
     var counter = 0
+
+    remoteViews.setTextViewText(R.id.curYearText, helper.curTitle)
+
     helper.days.forEach { day ->
         counter++
+        if (day.isMarked)
+            remoteViews.setTextViewCompoundDrawables(day.cellID, 0, 0, 0, R.drawable.red_dot)
+        else
+            remoteViews.setTextViewCompoundDrawables(day.cellID, 0, 0, 0, 0)
+
+        remoteViews.setViewVisibility(day.cellID, View.VISIBLE)
         remoteViews.setTextViewText(day.cellID, day.title)
     }
+
     (counter until KnaufMonth.cellList.count()).forEach { index ->
+        remoteViews.setTextViewCompoundDrawables(KnaufMonth.cellList[index], 0, 0, 0, 0)
         remoteViews.setViewVisibility(KnaufMonth.cellList[index], View.GONE)
     }
 
@@ -127,6 +183,7 @@ private fun updateCalendar(context: Context, remoteViews: RemoteViews) {
         counter++
         val cellID = KnaufMonth.weeksCellsList[index]
         val text = i.toString()
+        remoteViews.setViewVisibility(cellID, View.VISIBLE)
         remoteViews.setTextViewText(cellID, text)
     }
 
@@ -234,15 +291,25 @@ sealed class IntentType {
 
     object PrevClick : IntentType() {
         const val ACTION_PREV_MONTH_CLICK = "PREV_MONTH"
+        const val WIDGET_INFO_ID = "WIDGET_INFO_ID"
     }
 
     object NextClick : IntentType() {
         const val ACTION_NEXT_MONTH_CLICK = "NEXT_MONTH"
+        const val WIDGET_INFO_ID = "WIDGET_INFO_ID"
     }
 
     object NewFX : IntentType() {
         const val ACTION_NEW_FX = "NEW_FX"
         const val FX_INFO_KEY = "FX_INFO_KEY"
+    }
+
+    object OpenCalendar : IntentType() {
+        const val ACTION_OPEN_NATIVE_CALENDAR = "ACTION_OPEN_NATIVE_CALENDAR"
+    }
+
+    object OpenClock : IntentType() {
+        const val ACTION_OPEN_CLOCK = "ACTION_OPEN_CLOCK"
     }
 }
 
@@ -277,15 +344,25 @@ private fun <T> buildIntent(
         IntentType.PrevClick -> {
             intent.action = IntentType.PrevClick.ACTION_PREV_MONTH_CLICK
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+            infoString?.let { info -> intent.putExtra(IntentType.PrevClick.WIDGET_INFO_ID, info) }
         }
         IntentType.NextClick -> {
             intent.action = IntentType.NextClick.ACTION_NEXT_MONTH_CLICK
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+            infoString?.let { info -> intent.putExtra(IntentType.PrevClick.WIDGET_INFO_ID, info) }
         }
         IntentType.NewFX -> {
             intent.action = IntentType.NewFX.ACTION_NEW_FX
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             infoString?.let { info -> intent.putExtra(IntentType.NewFX.FX_INFO_KEY, info) }
+        }
+        IntentType.OpenCalendar -> {
+            intent.action = IntentType.OpenCalendar.ACTION_OPEN_NATIVE_CALENDAR
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+        }
+        IntentType.OpenClock -> {
+            intent.action = IntentType.OpenClock.ACTION_OPEN_CLOCK
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
         }
     }
     return PendingIntent.getBroadcast(context, appWidgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
