@@ -129,7 +129,7 @@ class Utility {
         return events;
     }
 
-    fun getDate(milliSeconds: Long): Triple<Int, Int, Int> {
+    private fun getDate(milliSeconds: Long): Triple<Int, Int, Int> {
         val formatter = SimpleDateFormat(
             "dd/MM/yyyy",
             Locale.getDefault()

@@ -8,6 +8,7 @@ import android.net.Uri
 import android.provider.AlarmClock
 import android.provider.CalendarContract
 import androidx.core.content.ContextCompat.startActivity
+import com.vrt.knaufwidget.appwidgets.SettingsHelper
 import java.util.*
 
 

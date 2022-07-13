@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/app_widget_description"
+    android:initialKeyguardLayout="@layout/knauf_widget_fx"
+    android:initialLayout="@layout/knauf_widget_fx"
+    android:minWidth="250dp"
+    android:minHeight="180dp"
+    android:previewImage="@drawable/example_appwidget_preview"
+    android:updatePeriodMillis="1000"
+    android:resizeMode="none"
+    android:widgetCategory="home_screen" />

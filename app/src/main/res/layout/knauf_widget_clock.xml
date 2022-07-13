@@ -1,0 +1,75 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clockRoot"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.KnaufWidget.AppWidget.Container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/schema_1_main_bg"
+    android:baselineAligned="false"
+    android:orientation="vertical"
+    android:theme="@style/Theme.KnaufWidget.AppWidgetContainer"
+    tools:ignore="DisableBaselineAlignment">
+
+    <LinearLayout
+        android:id="@+id/clockContainerCl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextClock
+                    android:id="@+id/timeTextCl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_horizontal|fill_horizontal"
+                    android:fontFamily="@font/widget_font_family"
+                    android:format12Hour="HH:mm"
+                    android:format24Hour="HH:mm"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/schema_1_clock_text"
+                    android:textSize="52sp" />
+
+                <TextClock
+                    android:id="@+id/dateTextCl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|fill_horizontal"
+                    android:fontFamily="@font/widget_font_family"
+                    android:format12Hour="dd.MM.yyyy"
+                    android:format24Hour="dd.MM.yyyy"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/schema_1_clock_text"
+                    android:textSize="26sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/logoCl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_main_logo" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

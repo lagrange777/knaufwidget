@@ -13,20 +13,44 @@
     <color name="light_blue_900">#FF01579B</color>
 
 
-
     <color name="meeting_dot">#00AFEF</color>
     <color name="birthdays_dot">#0A47A4</color>
     <color name="holidays_dot">#FF0000</color>
 
     <!--  Color Schema 1  -->
+    <color name="schema_1_clock_text">#000000</color>
     <color name="schema_1_main_bg">#FFFFFFFF</color>
     <color name="schema_1_title_bg">#DADADA</color>
     <color name="schema_1_subtitle_bg">#EBEBEB</color>
-    <color name="schema_1_content_bg">#F5F5F5</color>
+    <color name="schema_1_content_cal_bg">#F5F5F5</color>
+    <color name="schema_1_content_fx_bg">#F5F5F5</color>
     <color name="schema_1_week_number">#B3B3B3</color>
+
     <!--  Color Schema 2  -->
+    <color name="schema_2_clock_text">#000000</color>
+    <color name="schema_2_main_bg">#F5F5F5</color>
+    <color name="schema_2_title_bg">#D9F3FD</color>
+    <color name="schema_2_subtitle_bg">#EBEBEB</color>
+    <color name="schema_2_content_cal_bg">#F5F5F5</color>
+    <color name="schema_2_content_fx_bg">#FFFFFF</color>
+    <color name="schema_2_week_number">#B3B3B3</color>
 
     <!--  Color Schema 3  -->
+    <color name="schema_3_clock_text">#000000</color>
+    <color name="schema_3_main_bg">#D9F3FD</color>
+    <color name="schema_3_title_bg">#DADADA</color>
+    <color name="schema_3_subtitle_bg">#EBEBEB</color>
+    <color name="schema_3_content_cal_bg">#FFFFFF</color>
+    <color name="schema_3_content_fx_bg">#F5F5F5</color>
+    <color name="schema_3_week_number">#B3B3B3</color>
 
     <!--  Color Schema 4  -->
+    <color name="schema_4_clock_text">#FFFFFF</color>
+    <color name="schema_4_main_bg">#00AFEF</color>
+    <color name="schema_4_title_bg">#D9F3FD</color>
+    <color name="schema_4_subtitle_bg">#EBEBEB</color>
+    <color name="schema_4_content_cal_bg">#FFFFFF</color>
+    <color name="schema_4_content_fx_bg">#FFFFFF</color>
+    <color name="schema_4_week_number">#B3B3B3</color>
+
 </resources>

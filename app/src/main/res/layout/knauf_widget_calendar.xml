@@ -2,20 +2,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Widget.KnaufWidget.AppWidget.Container"
+    android:id="@+id/calendarRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:baselineAligned="false"
+    android:background="@color/schema_1_main_bg"
     android:orientation="vertical"
-    tools:ignore="DisableBaselineAlignment"
     android:theme="@style/Theme.KnaufWidget.AppWidgetContainer">
 
     <LinearLayout
-        android:id="@+id/clockContainer"
+        android:id="@+id/clockContainerCal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        tools:visibility="visible">
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,25 +29,27 @@
                 android:orientation="vertical">
 
                 <TextClock
-                    android:id="@+id/timeText"
+                    android:id="@+id/timeTextCal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center_horizontal|fill_horizontal"
+                    android:fontFamily="@font/widget_font_family"
                     android:format12Hour="HH:mm"
                     android:format24Hour="HH:mm"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/black"
+                    android:textColor="@color/schema_1_clock_text"
                     android:textSize="52sp" />
 
                 <TextClock
-                    android:id="@+id/dateText"
+                    android:id="@+id/dateTextCal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|fill_horizontal"
-                    android:textAlignment="viewStart"
+                    android:fontFamily="@font/widget_font_family"
                     android:format12Hour="dd.MM.yyyy"
                     android:format24Hour="dd.MM.yyyy"
-                    android:textColor="@color/black"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/schema_1_clock_text"
                     android:textSize="26sp" />
             </LinearLayout>
         </LinearLayout>
@@ -61,7 +62,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/logoCal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -69,165 +70,6 @@
                 app:srcCompat="@drawable/ic_main_logo" />
         </LinearLayout>
     </LinearLayout>
-
-    <GridLayout
-        android:id="@+id/exchangeContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@color/schema_1_content_bg"
-        android:columnCount="3"
-        android:orientation="horizontal"
-        android:rowCount="4">
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:background="@color/schema_1_title_bg"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="Валюта"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:background="@color/schema_1_title_bg"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="Курс"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:background="@color/schema_1_title_bg"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="Изменение"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="USD"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/usdRateText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="-"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/usdDiffText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="-"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="RUB"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/rubRateText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="-"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/rubDiffText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="-"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="EUR"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/eurRateText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="-"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/eurDiffText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="-"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-    </GridLayout>
 
     <LinearLayout
         android:id="@+id/calendarSelector"
@@ -252,7 +94,7 @@
             android:layout_height="match_parent"
             android:layout_weight="6"
             android:gravity="center"
-            android:text="MONTH YEAR"
+            android:fontFamily="@font/widget_font_family"
             android:textColor="@color/black" />
 
         <ImageButton
@@ -269,17 +111,18 @@
         android:id="@+id/calendarContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/schema_1_content_bg"
+        android:background="@color/schema_1_content_cal_bg"
         android:columnCount="8"
         android:orientation="horizontal"
         android:rowCount="6">
 
         <TextView
-            android:id="@+id/textView41"
+            android:id="@+id/subTitle1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:background="@color/schema_1_subtitle_bg"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:textAlignment="center"
@@ -287,11 +130,12 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView42"
+            android:id="@+id/subTitle2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:background="@color/schema_1_subtitle_bg"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="Пн"
@@ -300,11 +144,12 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView143"
+            android:id="@+id/subTitle3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:background="@color/schema_1_subtitle_bg"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="Вт"
@@ -313,11 +158,12 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView44"
+            android:id="@+id/subTitle4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:background="@color/schema_1_subtitle_bg"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="Ср"
@@ -326,11 +172,12 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView45"
+            android:id="@+id/subTitle5"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:background="@color/schema_1_subtitle_bg"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="Чт"
@@ -339,11 +186,12 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView46"
+            android:id="@+id/subTitle6"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:background="@color/schema_1_subtitle_bg"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="Пт"
@@ -352,11 +200,12 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView47"
+            android:id="@+id/subTitle7"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:background="@color/schema_1_subtitle_bg"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="Сб"
@@ -365,11 +214,12 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView48"
+            android:id="@+id/subTitle8"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
             android:background="@color/schema_1_subtitle_bg"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="Вс"
@@ -382,7 +232,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="W1"
@@ -395,19 +245,21 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D1"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:drawableBottomCompat="@drawable/red_dot" />
+            app:drawableBottomCompat="@drawable/event_dot" />
 
         <TextView
             android:id="@+id/day2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D2"
@@ -420,6 +272,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D3"
@@ -432,6 +285,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D4"
@@ -444,6 +298,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D5"
@@ -456,6 +311,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D6"
@@ -468,6 +324,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D7"
@@ -480,7 +337,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="W2"
@@ -493,6 +350,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D8"
@@ -505,6 +363,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D9"
@@ -517,6 +376,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D10"
@@ -529,6 +389,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D11"
@@ -541,6 +402,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D12"
@@ -553,6 +415,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D13"
@@ -565,6 +428,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D14"
@@ -577,7 +441,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="W3"
@@ -590,6 +454,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D15"
@@ -602,6 +467,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D16"
@@ -614,6 +480,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D17"
@@ -626,6 +493,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D18"
@@ -638,6 +506,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D19"
@@ -650,6 +519,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D20"
@@ -662,6 +532,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D21"
@@ -674,7 +545,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="W4"
@@ -687,6 +558,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D22"
@@ -699,6 +571,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D23"
@@ -711,6 +584,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D24"
@@ -723,6 +597,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D25"
@@ -735,6 +610,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D26"
@@ -747,6 +623,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D27"
@@ -759,6 +636,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D28"
@@ -771,7 +649,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="W5"
@@ -784,6 +662,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D29"
@@ -796,6 +675,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D30"
@@ -808,6 +688,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D31"
@@ -820,6 +701,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D32"
@@ -832,6 +714,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D33"
@@ -844,6 +727,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D34"
@@ -856,6 +740,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D35"
@@ -868,7 +753,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="W6"
@@ -881,6 +766,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D36"
@@ -893,6 +779,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D37"
@@ -905,6 +792,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D38"
@@ -917,6 +805,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D39"
@@ -929,6 +818,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D40"
@@ -941,6 +831,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D41"
@@ -953,6 +844,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_columnWeight="1"
+            android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="D42"
@@ -960,5 +852,6 @@
             android:textColor="@color/black"
             android:textSize="20sp" />
     </GridLayout>
+
 
 </LinearLayout>
