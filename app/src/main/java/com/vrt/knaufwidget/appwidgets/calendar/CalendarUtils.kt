@@ -27,6 +27,7 @@ fun updateCalendar(context: Context, remoteViews: RemoteViews) {
             remoteViews.setTextViewCompoundDrawables(day.cellID, 0, 0, 0, 0)
 
         remoteViews.setViewVisibility(day.cellID, View.VISIBLE)
+        println("updateCalendar ${day.cellID} ${day.title}")
         remoteViews.setTextViewText(day.cellID, day.title)
     }
 

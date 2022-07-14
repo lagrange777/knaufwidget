@@ -1,15 +1,21 @@
 package com.vrt.knaufwidget.appwidgets.calendar
 
+import android.Manifest
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
+import android.provider.Settings
 import android.widget.RemoteViews
 import com.vrt.knaufwidget.MainActivity
 import com.vrt.knaufwidget.R
 import com.vrt.knaufwidget.appwidgets.*
 import com.vrt.knaufwidget.startClock
 import com.vrt.knaufwidget.startNativeCalendar
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class KnaufWidgetCalendar : AppWidgetProvider() {
 
@@ -46,39 +52,26 @@ class KnaufWidgetCalendar : AppWidgetProvider() {
         super.onUpdate(context, appWidgetManager, appWidgetIds)
         context ?: return
         appWidgetManager ?: return
-        appWidgetIds ?: return
-        appWidgetIds.joinToString { "$it" }.apply { println("CALENDARUPDATE $this") }
-        appWidgetIds.forEach { appWidgetId ->
-            val pendingPrevClickIntent = buildIntent(IntentType.PrevClick, appWidgetId, context, javaClass, appWidgetId.toString())
-            val pendingNextClickIntent = buildIntent(IntentType.NextClick, appWidgetId, context, javaClass, appWidgetId.toString())
-            val pendingOpenCalendarIntent = buildIntent(IntentType.OpenCalendar, appWidgetId, context, javaClass)
-            val pendingOpenClockIntent = buildIntent(IntentType.OpenClock, appWidgetId, context, javaClass)
-            val views = RemoteViews(context.packageName, R.layout.knauf_widget_calendar)
-            val w = appWidgetManager.getAppWidgetOptions(appWidgetId).getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH)
-
-            scaleText(views, w, getCurDateForClock(), WidgetState.Calendar)
-            updateCalendar(context, appWidgetId)
-            updateColorSchema(views, context, appWidgetId)
-            views.setOnClickPendingIntent(R.id.clockContainerCal, pendingOpenClockIntent)
-            views.setOnClickPendingIntent(R.id.calendarContainer, pendingOpenCalendarIntent)
-            views.setOnClickPendingIntent(R.id.prevMonthBtn, pendingPrevClickIntent)
-            views.setOnClickPendingIntent(R.id.nextMonthBtn, pendingNextClickIntent)
-
-
-            views.setImageViewResource(R.id.prevMonthBtn, R.drawable.ic_arrow_back)
-            views.setImageViewResource(R.id.nextMonthBtn, R.drawable.ic_arrow_forward)
-
-            appWidgetManager.updateAppWidget(appWidgetId, views)
-
-        }
+        appWidgetIds?.forEach { appWidgetId -> updateWidget(context, appWidgetManager, appWidgetId) }
     }
 
+    override fun onAppWidgetOptionsChanged(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetId: Int, newOptions: Bundle?) {
+        super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions)
+        context ?: return
+        appWidgetManager ?: return
+        updateWidget(context, appWidgetManager, appWidgetId)
+    }
 
     override fun onReceive(context: Context?, intent: Intent?) {
         super.onReceive(context, intent)
         context ?: return
         val action = intent?.action ?: return
-
+        if (!(MainActivity.checkPermission(
+                context,
+                MainActivity.CALLBACK_ID,
+                listOf(Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR)
+            ))
+        ) return
         when (action) {
             IntentType.NextClick.ACTION_NEXT_MONTH_CLICK -> {
                 SettingsHelper.getSavedCalendarState(context).apply {
@@ -90,6 +83,7 @@ class KnaufWidgetCalendar : AppWidgetProvider() {
                     SettingsHelper.saveCurrentCalendarState(context, newM, newY)
                 }
                 val wID = intent.getStringExtra(IntentType.PrevClick.WIDGET_INFO_ID) ?: return
+                updateWidget(context, AppWidgetManager.getInstance(context), wID.toInt(), false)
                 updateCalendar(context, wID.toInt())
             }
             IntentType.PrevClick.ACTION_PREV_MONTH_CLICK -> {
@@ -102,6 +96,7 @@ class KnaufWidgetCalendar : AppWidgetProvider() {
                     SettingsHelper.saveCurrentCalendarState(context, newM, newY)
                 }
                 val wID = intent.getStringExtra(IntentType.PrevClick.WIDGET_INFO_ID) ?: return
+                updateWidget(context, AppWidgetManager.getInstance(context), wID.toInt(), false)
                 updateCalendar(context, wID.toInt())
             }
             MainActivity.UPDATE_FROM_ACTIVITY -> {
@@ -134,5 +129,44 @@ class KnaufWidgetCalendar : AppWidgetProvider() {
         views.setInt(calendar, ColorSchema.SET_BACKGROUND_COLOR_KEY, schema.contentCalBg.invoke(context))
 
         AppWidgetManager.getInstance(context).updateAppWidget(widgetID, views)
+    }
+
+    private fun updateWidget(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetId: Int,
+        shouldRefresh: Boolean = true
+    ) {
+
+        if (!(MainActivity.checkPermission(
+                context,
+                MainActivity.CALLBACK_ID,
+                listOf(Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR)
+            ))
+        ) return
+
+        val pendingPrevClickIntent = buildIntent(IntentType.PrevClick, appWidgetId, context, javaClass, appWidgetId.toString())
+        val pendingNextClickIntent = buildIntent(IntentType.NextClick, appWidgetId, context, javaClass, appWidgetId.toString())
+        val pendingOpenCalendarIntent = buildIntent(IntentType.OpenCalendar, appWidgetId, context, javaClass)
+        val pendingOpenClockIntent = buildIntent(IntentType.OpenClock, appWidgetId, context, javaClass)
+        val views = RemoteViews(context.packageName, R.layout.knauf_widget_calendar)
+        val w = appWidgetManager.getAppWidgetOptions(appWidgetId).getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH)
+
+        scaleText(views, w, getCurDateForClock(), WidgetState.Calendar)
+        updateCalendar(context, appWidgetId)
+        updateColorSchema(views, context, appWidgetId)
+        views.setOnClickPendingIntent(R.id.clockContainerCal, pendingOpenClockIntent)
+        views.setOnClickPendingIntent(R.id.calendarContainer, pendingOpenCalendarIntent)
+        views.setOnClickPendingIntent(R.id.prevMonthBtn, pendingPrevClickIntent)
+        views.setOnClickPendingIntent(R.id.nextMonthBtn, pendingNextClickIntent)
+
+        views.setImageViewResource(R.id.prevMonthBtn, R.drawable.ic_arrow_back)
+        views.setImageViewResource(R.id.nextMonthBtn, R.drawable.ic_arrow_forward)
+
+        appWidgetManager.updateAppWidget(appWidgetId, views)
+        if (shouldRefresh) {
+            pendingPrevClickIntent.send()
+            pendingNextClickIntent.send()
+        }
     }
 }

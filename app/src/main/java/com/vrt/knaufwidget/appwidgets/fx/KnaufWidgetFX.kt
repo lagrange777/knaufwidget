@@ -1,5 +1,6 @@
 package com.vrt.knaufwidget.appwidgets.fx
 
+import android.Manifest
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
@@ -7,8 +8,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.RemoteViews
 import com.vrt.knaufwidget.*
+import com.vrt.knaufwidget.MainActivity.Companion.checkPermission
 import com.vrt.knaufwidget.appwidgets.*
 import com.vrt.knaufwidget.appwidgets.clock.KnaufWidgetClock
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 
@@ -34,21 +39,16 @@ class KnaufWidgetFX : AppWidgetProvider() {
     ) {
         context ?: return
         appWidgetManager ?: return
-        appWidgetIds ?: return
-        appWidgetIds.joinToString { "$it" }.apply { println("FXUPDATE $this") }
-        appWidgetIds.forEach { appWidgetId ->
-            val pendingOpenClockIntent = buildIntent(IntentType.OpenClock, appWidgetId, context, javaClass)
-            val views = RemoteViews(context.packageName, R.layout.knauf_widget_fx)
-            val w = appWidgetManager.getAppWidgetOptions(appWidgetId).getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH)
-            scaleText(views, w, getCurDateForClock(), WidgetState.FX)
-            updateColorSchema(views, context, appWidgetId)
-
-            views.setOnClickPendingIntent(R.id.clockContainerFX, pendingOpenClockIntent)
-            appWidgetManager.updateAppWidget(appWidgetId, views)
-            askFX(context, CurrencyType.RUB, appWidgetId, javaClass)
-            askFX(context, CurrencyType.USD, appWidgetId, javaClass)
-            askFX(context, CurrencyType.EUR, appWidgetId, javaClass)
+        appWidgetIds?.forEach { appWidgetId ->
+            updateWidget(context, appWidgetManager, appWidgetId)
         }
+    }
+
+    override fun onAppWidgetOptionsChanged(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetId: Int, newOptions: Bundle?) {
+        super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions)
+        context ?: return
+        appWidgetManager ?: return
+        updateWidget(context, appWidgetManager, appWidgetId)
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -93,4 +93,24 @@ class KnaufWidgetFX : AppWidgetProvider() {
         AppWidgetManager.getInstance(context).updateAppWidget(widgetID, views)
     }
 
+    private fun updateWidget(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetId: Int
+    ) {
+//        if (!(checkPermission(context, MainActivity.CALLBACK_ID, listOf(Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR)))) return
+
+        println("FXWIDGET update")
+        val pendingOpenClockIntent = buildIntent(IntentType.OpenClock, appWidgetId, context, javaClass)
+        val views = RemoteViews(context.packageName, R.layout.knauf_widget_fx)
+        val w = appWidgetManager.getAppWidgetOptions(appWidgetId).getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH)
+        scaleText(views, w, getCurDateForClock(), WidgetState.FX)
+        updateColorSchema(views, context, appWidgetId)
+
+        views.setOnClickPendingIntent(R.id.clockContainerFX, pendingOpenClockIntent)
+        appWidgetManager.updateAppWidget(appWidgetId, views)
+        askFX(context, CurrencyType.RUB, appWidgetId, javaClass)
+        askFX(context, CurrencyType.USD, appWidgetId, javaClass)
+        askFX(context, CurrencyType.EUR, appWidgetId, javaClass)
+    }
 }

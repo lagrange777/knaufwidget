@@ -98,5 +98,5 @@ fun <T> buildIntent(
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
         }
     }
-    return PendingIntent.getBroadcast(context, appWidgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    return PendingIntent.getBroadcast(context, appWidgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 }

@@ -93,6 +93,7 @@ class Utility {
 
     fun readCalendarEvent(context: Context): MutableList<WidgetCalendarEvent> {
         CalendarContract.Calendars._ID
+        var counter = 0
         val cursor = context.contentResolver
             .query(
                 Uri.parse("content://com.android.calendar/events"),
@@ -102,7 +103,8 @@ class Utility {
                 null
             )
         cursor?.moveToFirst()
-        while (true) {
+        while (counter < (cursor?.count ?: 0)) {
+            counter++
             try {
                 val date = getDate(cursor?.getString(3)?.toLong() ?: 0L)
                 events.add(
@@ -118,8 +120,6 @@ class Utility {
 //                startDates.add(getDate(cursor?.getString(3)?.toLong() ?: 0L))
 //                endDates.add(getDate(cursor?.getString(4)?.toLong() ?: 0L))
 //                descriptions.add(cursor?.getString(2) ?: "")
-
-                cursor?.moveToNext() ?: break
             } catch (e: Exception) {
                 e.printStackTrace()
                 break

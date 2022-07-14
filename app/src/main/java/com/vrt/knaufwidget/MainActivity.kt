@@ -3,6 +3,7 @@ package com.vrt.knaufwidget
 import android.Manifest
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
@@ -26,24 +27,29 @@ class MainActivity : AppCompatActivity() {
         const val CALLBACK_ID = 42
         const val UPDATE_FROM_ACTIVITY = "android.appwidget.action.APPWIDGET_UPDATE"
         private const val APP_ID = """4779bfe3-69a7-4335-a003-7b28ae1bcd71"""
+
+        fun checkPermission(context : Context, callbackId: Int, permissionsId: List<String>) : Boolean {
+            var permissions = true
+            for (p in permissionsId) {
+                permissions =
+                    permissions && ContextCompat.checkSelfPermission(context, p) == PERMISSION_GRANTED
+            }
+            return permissions
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        checkPermission(CALLBACK_ID, Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR)
-        val res = UtilityTest().readCalendarEvent(this)
+        checkPermission(CALLBACK_ID, listOf(Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR))
         initButtons()
         updateTitle()
     }
 
-    private fun checkPermission(callbackId: Int, vararg permissionsId: String) {
-        var permissions = true
-        for (p in permissionsId) {
-            permissions =
-                permissions && ContextCompat.checkSelfPermission(this, p) == PERMISSION_GRANTED
-        }
-        if (!permissions) ActivityCompat.requestPermissions(this, permissionsId, callbackId)
+    private fun checkPermission(callbackId: Int, permissionsIds: List<String>) {
+        val permissions = Companion.checkPermission(this, callbackId, permissionsIds)
+
+        if (!permissions) ActivityCompat.requestPermissions(this, permissionsIds.toTypedArray(), callbackId)
     }
 
     private fun initButtons() {
@@ -81,9 +87,5 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra(KnaufWidgetFX.SCHEMA_UPDATE_KEY, fxIds)
         intent.putExtra(KnaufWidgetCalendar.SCHEMA_UPDATE_KEY, calendarIds)
         this.sendBroadcast(intent)
-
-
     }
-
-
 }
