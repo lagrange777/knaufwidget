@@ -9,6 +9,7 @@ import android.provider.AlarmClock
 import android.provider.CalendarContract
 import androidx.core.content.ContextCompat.startActivity
 import com.vrt.knaufwidget.appwidgets.SettingsHelper
+import com.vrt.knaufwidget.outlook.OutlookHelper
 import java.util.*
 
 
@@ -101,9 +102,6 @@ class KnaufMonth(
             "${monthNames[m]} $y"
         }
 
-    val days: MutableList<KnaufDay>
-        get() = getAllDays()
-
     val weeksRange: List<Int>
         get() = run {
             val res = mutableListOf<Int>()
@@ -112,7 +110,6 @@ class KnaufMonth(
             val endRange = if (calendar.get(Calendar.WEEK_OF_YEAR) == 1) calendar.weeksInWeekYear else calendar.get(Calendar.WEEK_OF_YEAR)
             calendar.set(Calendar.DAY_OF_MONTH, 1)
             val startRange = calendar.get(Calendar.WEEK_OF_YEAR)
-            println("WEEKS $startRange $endRange ${calendar.weeksInWeekYear}")
             (startRange..endRange).forEach { i ->  res.add(i) }
             res
         }
@@ -129,19 +126,44 @@ class KnaufMonth(
         calendar.set(Calendar.DAY_OF_MONTH, 1)
     }
 
-    private fun getAllDays(): MutableList<KnaufDay> {
+    fun getAllDays(getAllDays: (MutableList<KnaufDay>) -> Unit ) {
         val days = mutableListOf<KnaufDay>()
         val calendarResolver = Utility()
-        val calDays = calendarResolver.readCalendarEvent(context)
+        val acc = SettingsHelper.getSavedAccForSync(context)
+        if (acc != "Outlook") {
+            val calDays = calendarResolver.readCalendarEvent(context)
 
-        days.addAll(getOutOfRangeDays())
-        (1..daysInMonth).forEach { index ->
-            val isMarked = calDays.any { it.day ==  index && it.month == calendar.get(Calendar.MONTH) + 1 && it.year == calendar.get(Calendar.YEAR) }
-            val kDay = KnaufDay(index, isMarked)
-            kDay.cellID = cellList[days.count()]
-            days.add(kDay)
+            days.addAll(getOutOfRangeDays())
+            (1..daysInMonth).forEach { index ->
+                val isMarked =
+                    calDays.any {
+                        println("MILILOG LOOP 1 ${it.day} ${it.month} ${it.year}")
+                        it.day == index && it.month == calendar.get(Calendar.MONTH) + 1 && it.year == calendar.get(Calendar.YEAR)
+                    }
+                val kDay = KnaufDay(index, isMarked)
+                kDay.cellID = cellList[days.count()]
+                days.add(kDay)
+            }
+            getAllDays.invoke(days)
+        } else {
+            OutlookHelper(context).apply {
+                initOutlook(null) {
+                    days.addAll(getOutOfRangeDays())
+                    (1..daysInMonth).forEach { index ->
+                        val isMarked =
+                            it.any {
+                                println("MILILOG LOOP 2 ${it.day} ${it.month} ${it.year}")
+                                it.day == index && it.month == calendar.get(Calendar.MONTH) + 1 && it.year == calendar.get(Calendar.YEAR)
+                            }
+                        println("MILILOG $index $isMarked")
+                        val kDay = KnaufDay(index, isMarked)
+                        kDay.cellID = cellList[days.count()]
+                        days.add(kDay)
+                    }
+                    getAllDays.invoke(days)
+                }
+            }
         }
-        return days
     }
 
     private fun getOutOfRangeDays(): List<KnaufDay> {

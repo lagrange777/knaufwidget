@@ -68,7 +68,6 @@ class KnaufWidgetCalendar : AppWidgetProvider() {
         val action = intent?.action ?: return
         if (!(MainActivity.checkPermission(
                 context,
-                MainActivity.CALLBACK_ID,
                 listOf(Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR)
             ))
         ) return
@@ -140,7 +139,6 @@ class KnaufWidgetCalendar : AppWidgetProvider() {
 
         if (!(MainActivity.checkPermission(
                 context,
-                MainActivity.CALLBACK_ID,
                 listOf(Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR)
             ))
         ) return

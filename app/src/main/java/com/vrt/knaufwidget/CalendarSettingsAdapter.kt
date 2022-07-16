@@ -1,14 +1,14 @@
-package com.vrt.knaufwidget.appwidgets
+package com.vrt.knaufwidget
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
-import com.vrt.knaufwidget.R
-import com.vrt.knaufwidget.appwidgets.CalendarSettingsItem.Companion.ADD
-import com.vrt.knaufwidget.appwidgets.CalendarSettingsItem.Companion.DISABLE
-import com.vrt.knaufwidget.appwidgets.CalendarSettingsItem.Companion.ENABLE
+import com.vrt.knaufwidget.CalendarSettingsItem.Companion.ADD
+import com.vrt.knaufwidget.CalendarSettingsItem.Companion.DISABLE
+import com.vrt.knaufwidget.CalendarSettingsItem.Companion.ENABLE
 
 
 sealed class CalendarSettingsItem {
@@ -24,7 +24,7 @@ sealed class CalendarSettingsItem {
     abstract var text: String
 
     data class Add(override val viewType: Int = ADD) : CalendarSettingsItem() {
-        override var text: String = "Добавить Outlook"
+        override var text: String = "Outlook"
         override val color: Int = R.color.light_blue_200
     }
 
@@ -56,6 +56,7 @@ class CalendarSettingsAdapter : RecyclerView.Adapter<CalendarSettingsAdapter.Cal
         ENABLE to ::createEnableVH,
         DISABLE to ::createDisableVH
     )
+    private var onItemClick: ((Int, String) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarSettingsVH {
         return vhMap[viewType]?.invoke(parent) ?: createAddVH(parent)
@@ -67,6 +68,11 @@ class CalendarSettingsAdapter : RecyclerView.Adapter<CalendarSettingsAdapter.Cal
 
     override fun getItemCount(): Int = data.count()
 
+    override fun getItemViewType(position: Int): Int = data.getOrNull(position)?.viewType ?: 0
+
+    fun onItemClick(onItemClick: (Int, String) -> Unit) {
+        this.onItemClick = onItemClick
+    }
 
     private fun createEnableVH(parent: ViewGroup): EnableVH =
         EnableVH(
@@ -92,21 +98,30 @@ class CalendarSettingsAdapter : RecyclerView.Adapter<CalendarSettingsAdapter.Cal
         abstract fun bind(item: CalendarSettingsItem)
     }
 
-    inner class EnableVH(view: View) : CalendarSettingsVH(view) {
+    inner class EnableVH(private val view: View) : CalendarSettingsVH(view) {
         override fun bind(item: CalendarSettingsItem) {
-
+            val color = view.context.getColor(item.color)
+            (view as? AppCompatTextView)?.text = item.text
+            view.setBackgroundColor(color)
+            view.setOnClickListener { onItemClick?.invoke(item.viewType, item.text) }
         }
     }
 
-    inner class DisableVH(view: View) : CalendarSettingsVH(view) {
+    inner class DisableVH(private val view: View) : CalendarSettingsVH(view) {
         override fun bind(item: CalendarSettingsItem) {
-
+            val color = view.context.getColor(item.color)
+            (view as? AppCompatTextView)?.text = item.text
+            view.setBackgroundColor(color)
+            view.setOnClickListener { onItemClick?.invoke(item.viewType, item.text) }
         }
     }
 
-    inner class AddVH(view: View) : CalendarSettingsVH(view) {
+    inner class AddVH(private val view: View) : CalendarSettingsVH(view) {
         override fun bind(item: CalendarSettingsItem) {
-
+            val color = view.context.getColor(item.color)
+            (view as? AppCompatTextView)?.text = item.text
+            view.setBackgroundColor(color)
+            view.setOnClickListener { onItemClick?.invoke(item.viewType, item.text) }
         }
     }
 }

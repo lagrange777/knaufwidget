@@ -12,7 +12,8 @@ data class WidgetCalendarEvent(
     val day: Int,
     val month: Int,
     val year: Int,
-    val msDate: Long
+    val msDate: Long,
+    val accName: String
 )
 
 data class WidgetCalendarEventTest(
@@ -31,6 +32,7 @@ val queryListTest = listOf(
 
 val queryList = listOf(
     "calendar_id",
+    "account_name",
     "title",
     "description",
     "dtstart",
@@ -106,20 +108,23 @@ class Utility {
         while (counter < (cursor?.count ?: 0)) {
             counter++
             try {
-                val date = getDate(cursor?.getString(3)?.toLong() ?: 0L)
+                val date = getDate(cursor?.getString(4)?.toLong() ?: 0L)
+                println("MILILOG123 day = ${date.first}, month = ${date.second} year = ${date.third}")
                 events.add(
                     WidgetCalendarEvent(
-                        title = cursor?.getString(1) ?: "",
+                        title = cursor?.getString(2) ?: "",
                         day = date.first,
                         month = date.second,
                         year = date.third,
-                        cursor?.getString(3)?.toLong() ?: 0L
+                        msDate = cursor?.getString(4)?.toLong() ?: 0L,
+                        accName = cursor?.getString(1) ?: ""
                     )
                 )
 //                nameOfEvent.add(cursor?.getString(1) ?: "");
 //                startDates.add(getDate(cursor?.getString(3)?.toLong() ?: 0L))
 //                endDates.add(getDate(cursor?.getString(4)?.toLong() ?: 0L))
 //                descriptions.add(cursor?.getString(2) ?: "")
+                cursor?.moveToNext() ?: break
             } catch (e: Exception) {
                 e.printStackTrace()
                 break

@@ -13,6 +13,8 @@ object SettingsHelper {
     private const val COLOR_SCHEME_KEY = "KNAUF_WIDGET_SETTINGS_COLOR_SCHEME_KEY"
     private const val MONTH_KEY = "KNAUF_WIDGET_SETTINGS_MONTH_KEY"
     private const val YEAR_KEY = "KNAUF_WIDGET_SETTINGS_YEAR_KEY"
+    private const val ACC_KEY = "KNAUF_WIDGET_SETTINGS_ACC_KEY"
+    private const val TOKEN_KEY = "KNAUF_WIDGET_SETTINGS_TOKEN_KEY"
 
     fun saveCurrentCalendarState(context: Context, month: Int, year: Int) {
         val settings: SharedPreferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE)
@@ -52,5 +54,31 @@ object SettingsHelper {
             4 -> ColorSchema.Schema4
             else -> ColorSchema.Schema1
         }
+    }
+
+    fun saveAccForSync(context: Context, acc: String) {
+        val settings: SharedPreferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+        settings.edit().apply {
+            putString(ACC_KEY, acc)
+            apply()
+        }
+    }
+
+    fun getSavedAccForSync(context: Context) : String {
+        val settings: SharedPreferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+        return settings.getString(ACC_KEY, "") ?: ""
+    }
+
+    fun saveOutlookToken(context: Context, token: String) {
+        val settings: SharedPreferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+        settings.edit().apply {
+            putString(TOKEN_KEY, token)
+            apply()
+        }
+    }
+
+    fun getSavedOutlookToken(context: Context) : String? {
+        val settings: SharedPreferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+        return settings.getString(TOKEN_KEY, null)
     }
 }
