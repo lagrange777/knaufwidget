@@ -109,7 +109,6 @@ class Utility {
             counter++
             try {
                 val date = getDate(cursor?.getString(4)?.toLong() ?: 0L)
-                println("MILILOG123 day = ${date.first}, month = ${date.second} year = ${date.third}")
                 events.add(
                     WidgetCalendarEvent(
                         title = cursor?.getString(2) ?: "",
@@ -120,10 +119,6 @@ class Utility {
                         accName = cursor?.getString(1) ?: ""
                     )
                 )
-//                nameOfEvent.add(cursor?.getString(1) ?: "");
-//                startDates.add(getDate(cursor?.getString(3)?.toLong() ?: 0L))
-//                endDates.add(getDate(cursor?.getString(4)?.toLong() ?: 0L))
-//                descriptions.add(cursor?.getString(2) ?: "")
                 cursor?.moveToNext() ?: break
             } catch (e: Exception) {
                 e.printStackTrace()

@@ -85,12 +85,26 @@ fun <T> buildIntent(
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             infoString?.let { info -> intent.putExtra(IntentType.NewFX.FX_INFO_KEY, info) }
         }
+        IntentType.FXExc -> {
+            intent.action = IntentType.FXExc.ACTION_FX_EXC
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+            infoString?.let { info -> intent.putExtra(IntentType.FXExc.FX_EXC_INFO_KEY, info) }
+        }
+        IntentType.FXEr -> {
+            intent.action = IntentType.FXEr.ACTION_FX_ER
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+            infoString?.let { info -> intent.putExtra(IntentType.FXEr.FX_ER_INFO_KEY, info) }
+        }
         IntentType.OpenCalendar -> {
             intent.action = IntentType.OpenCalendar.ACTION_OPEN_NATIVE_CALENDAR
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
         }
         IntentType.OpenClock -> {
             intent.action = IntentType.OpenClock.ACTION_OPEN_CLOCK
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+        }
+        IntentType.OpenFX -> {
+            intent.action = IntentType.OpenFX.ACTION_OPEN_FX
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
         }
         IntentType.ChangeColorSchema -> {

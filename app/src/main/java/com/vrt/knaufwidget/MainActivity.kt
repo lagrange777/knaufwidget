@@ -1,7 +1,6 @@
 package com.vrt.knaufwidget
 
 import android.Manifest
-import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
@@ -9,7 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
@@ -17,21 +16,18 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.volley.Response
 import com.microsoft.identity.client.*
 import com.microsoft.identity.client.exception.MsalClientException
 import com.microsoft.identity.client.exception.MsalException
 import com.microsoft.identity.client.exception.MsalServiceException
-import com.vrt.knaufwidget.appwidgets.ColorSchema
-import com.vrt.knaufwidget.appwidgets.IntentType
+import com.vrt.knaufwidget.appwidgets.ColorSchemaNew
 import com.vrt.knaufwidget.appwidgets.SettingsHelper
-import com.vrt.knaufwidget.appwidgets.buildIntent
 import com.vrt.knaufwidget.appwidgets.calendar.KnaufWidgetCalendar
 import com.vrt.knaufwidget.appwidgets.clock.KnaufWidgetClock
+import com.vrt.knaufwidget.appwidgets.clock.KnaufWidgetSmallClock
 import com.vrt.knaufwidget.appwidgets.fx.KnaufWidgetFX
 import com.vrt.knaufwidget.outlook.MSGraphRequestWrapper
 import com.vrt.knaufwidget.outlook.OutlookEntity
-import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
@@ -56,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     private val calendarUtility = Utility()
 
     private var mSingleAccountApp: ISingleAccountPublicClientApplication? = null
-    private var outlookToken : String?
+    private var outlookToken: String?
         get() = SettingsHelper.getSavedOutlookToken(this)
         set(value) {
             value ?: return
@@ -69,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         checkPermission(CALLBACK_ID, listOf(Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR))
         initButtons()
-        updateTitle()
+        updateTitleAndButtons()
         initOutlookClient()
         initAdapter()
     }
@@ -83,19 +79,15 @@ class MainActivity : AppCompatActivity() {
     private fun initButtons() {
         val b1 = findViewById<AppCompatButton>(R.id.buttonS1)
         val b2 = findViewById<AppCompatButton>(R.id.buttonS2)
-        val b3 = findViewById<AppCompatButton>(R.id.buttonS3)
-        val b4 = findViewById<AppCompatButton>(R.id.buttonS4)
 
-        b1.setOnClickListener { onSchemaBtnClick(ColorSchema.Schema1) }
-        b2.setOnClickListener { onSchemaBtnClick(ColorSchema.Schema2) }
-        b3.setOnClickListener { onSchemaBtnClick(ColorSchema.Schema3) }
-        b4.setOnClickListener { onSchemaBtnClick(ColorSchema.Schema4) }
+        b1.setOnClickListener { onSchemaBtnClick(ColorSchemaNew.Schema1) }
+        b2.setOnClickListener { onSchemaBtnClick(ColorSchemaNew.Schema2) }
     }
 
-    private fun onSchemaBtnClick(schema: ColorSchema) {
+    private fun onSchemaBtnClick(schema: ColorSchemaNew) {
         SettingsHelper.saveColorScheme(this, schema)
         notifyAllWidgets()
-        updateTitle()
+        updateTitleAndButtons()
     }
 
     private fun initOutlookClient() {
@@ -104,11 +96,6 @@ class MainActivity : AppCompatActivity() {
             R.raw.msal_config,
             object : IPublicClientApplication.ISingleAccountApplicationCreatedListener {
                 override fun onCreated(application: ISingleAccountPublicClientApplication) {
-                    /**
-                     * This test app assumes that the app is only going to support one account.
-                     * This requires "account_mode" : "SINGLE" in the config json file.
-                     *
-                     */
                     mSingleAccountApp = application
 
                     loadAccount()
@@ -120,10 +107,26 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    private fun updateTitle() {
+    private fun updateTitleAndButtons() {
         val t = findViewById<AppCompatTextView>(R.id.schemaTitle)
+        val b1 = findViewById<AppCompatButton>(R.id.buttonS1)
+        val b2 = findViewById<AppCompatButton>(R.id.buttonS2)
         SettingsHelper.getSavedColorScheme(this).let {
-            t.text = "Выбрана цветовая схема ${it.schemeID}"
+            val text = "Выбрана цветовая схема ${it.schemaName}"
+            t.text = text
+            Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+            val enableColor = getColor(R.color.settings_activity_schema_enable)
+            val disableColor = getColor(R.color.settings_activity_schema_disable)
+            when (it.schemeID) {
+                12 -> {
+                    b1.setBackgroundColor(disableColor)
+                    b2.setBackgroundColor(enableColor)
+                }
+                else -> {
+                    b2.setBackgroundColor(disableColor)
+                    b1.setBackgroundColor(enableColor)
+                }
+            }
         }
     }
 
@@ -131,9 +134,11 @@ class MainActivity : AppCompatActivity() {
         val manager = AppWidgetManager.getInstance(this)
         val intent = Intent(UPDATE_FROM_ACTIVITY)
         val clockIds = manager.getAppWidgetIds(ComponentName(this, KnaufWidgetClock::class.java))
+        val smallClockIds = manager.getAppWidgetIds(ComponentName(this, KnaufWidgetSmallClock::class.java))
         val fxIds = manager.getAppWidgetIds(ComponentName(this, KnaufWidgetFX::class.java))
         val calendarIds = manager.getAppWidgetIds(ComponentName(this, KnaufWidgetCalendar::class.java))
         intent.putExtra(KnaufWidgetClock.SCHEMA_UPDATE_KEY, clockIds)
+        intent.putExtra(KnaufWidgetClock.SCHEMA_UPDATE_KEY, smallClockIds)
         intent.putExtra(KnaufWidgetFX.SCHEMA_UPDATE_KEY, fxIds)
         intent.putExtra(KnaufWidgetCalendar.SCHEMA_UPDATE_KEY, calendarIds)
         this.sendBroadcast(intent)
@@ -196,7 +201,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initOutlook() {
-        outlookToken?.let { callGraphAPI()} ?: mSingleAccountApp?.signIn(this, "", getScopes(), getAuthInteractiveCallback()) ?: return
+        outlookToken?.let { callGraphAPI() } ?: mSingleAccountApp?.signIn(this, "", getScopes(), getAuthInteractiveCallback()) ?: return
     }
 
     private fun getScopes(): Array<String> {

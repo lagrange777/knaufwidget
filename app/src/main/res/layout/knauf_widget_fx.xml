@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fxRoot"
     style="@style/Widget.KnaufWidget.AppWidget.Container"
-    android:orientation="vertical"
-    android:background="@color/schema_1_main_bg"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/schema_1_main_bg"
+    android:orientation="vertical"
     android:theme="@style/Theme.KnaufWidget.AppWidgetContainer">
 
     <LinearLayout
@@ -65,7 +65,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:scaleType="fitCenter"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:scaleType="fitEnd"
                 app:srcCompat="@drawable/ic_main_logo" />
         </LinearLayout>
     </LinearLayout>
@@ -128,9 +130,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
+            android:drawableStart="@drawable/ic_usd"
             android:fontFamily="@font/widget_font_family"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:gravity="center"
+            android:paddingStart="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:text="USD"
             android:textAlignment="center"
             android:textColor="@color/black"
@@ -167,9 +172,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
+            android:drawableStart="@drawable/ic_rub"
             android:fontFamily="@font/widget_font_family"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:gravity="center"
+            android:paddingStart="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:text="RUB"
             android:textAlignment="center"
             android:textColor="@color/black"
@@ -206,9 +214,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
+            android:drawableStart="@drawable/ic_eur"
             android:fontFamily="@font/widget_font_family"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:gravity="center"
+            android:paddingStart="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:text="EUR"
             android:textAlignment="center"
             android:textColor="@color/black"
@@ -241,7 +252,6 @@
             android:textSize="12sp" />
 
     </GridLayout>
-
 
 
 </LinearLayout>

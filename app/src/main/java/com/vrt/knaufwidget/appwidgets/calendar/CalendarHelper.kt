@@ -9,6 +9,8 @@ import android.provider.AlarmClock
 import android.provider.CalendarContract
 import androidx.core.content.ContextCompat.startActivity
 import com.vrt.knaufwidget.appwidgets.SettingsHelper
+import com.vrt.knaufwidget.appwidgets.fx.FX_URI
+import com.vrt.knaufwidget.appwidgets.fx.FX_URI_INFO
 import com.vrt.knaufwidget.outlook.OutlookHelper
 import java.util.*
 
@@ -137,7 +139,6 @@ class KnaufMonth(
             (1..daysInMonth).forEach { index ->
                 val isMarked =
                     calDays.any {
-                        println("MILILOG LOOP 1 ${it.day} ${it.month} ${it.year}")
                         it.day == index && it.month == calendar.get(Calendar.MONTH) + 1 && it.year == calendar.get(Calendar.YEAR)
                     }
                 val kDay = KnaufDay(index, isMarked)
@@ -152,10 +153,8 @@ class KnaufMonth(
                     (1..daysInMonth).forEach { index ->
                         val isMarked =
                             it.any {
-                                println("MILILOG LOOP 2 ${it.day} ${it.month} ${it.year}")
                                 it.day == index && it.month == calendar.get(Calendar.MONTH) + 1 && it.year == calendar.get(Calendar.YEAR)
                             }
-                        println("MILILOG $index $isMarked")
                         val kDay = KnaufDay(index, isMarked)
                         kDay.cellID = cellList[days.count()]
                         days.add(kDay)
@@ -201,5 +200,11 @@ fun startClock(context: Context) {
     val mClockIntent = Intent(AlarmClock.ACTION_SHOW_ALARMS)
     mClockIntent.flags = FLAG_ACTIVITY_NEW_TASK
     startActivity(context, mClockIntent, null)
+}
+
+fun startFX(context: Context) {
+    val mFXIntent = Intent(Intent.ACTION_VIEW, Uri.parse(FX_URI_INFO))
+    mFXIntent.flags = FLAG_ACTIVITY_NEW_TASK
+    startActivity(context, mFXIntent, null)
 }
 

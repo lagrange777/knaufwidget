@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">KnaufWidget</string>
+    <string name="app_name">KNAUF Widget`s Uz</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">This is an app widget description</string>
+    <string name="app_widget_description_calendar">Calendar</string>
+    <string name="app_widget_description_fx">Exchange Rates</string>
+    <string name="app_widget_description_clock">Clock</string>
+    <string name="app_widget_description_small_clock">Small Clock</string>
 </resources>

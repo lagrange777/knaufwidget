@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/clockRoot"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clockRoot"
     style="@style/Widget.KnaufWidget.AppWidget.Container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/schema_1_main_bg"
     android:baselineAligned="false"
     android:orientation="vertical"
@@ -37,6 +37,7 @@
                     android:fontFamily="@font/widget_font_family"
                     android:format12Hour="HH:mm"
                     android:format24Hour="HH:mm"
+                    android:text="140"
                     android:textAlignment="viewStart"
                     android:textColor="@color/schema_1_clock_text"
                     android:textSize="52sp" />
@@ -49,10 +50,25 @@
                     android:fontFamily="@font/widget_font_family"
                     android:format12Hour="dd.MM.yyyy"
                     android:format24Hour="dd.MM.yyyy"
+                    android:text="568"
                     android:textAlignment="viewStart"
                     android:textColor="@color/schema_1_clock_text"
                     android:textSize="26sp" />
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/bellCl"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="start|center_vertical"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_bell" />
         </LinearLayout>
 
         <LinearLayout
@@ -67,7 +83,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:scaleType="fitCenter"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:scaleType="fitEnd"
                 app:srcCompat="@drawable/ic_main_logo" />
         </LinearLayout>
     </LinearLayout>

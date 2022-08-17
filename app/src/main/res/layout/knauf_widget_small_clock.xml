@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/smallClockRoot"
+    style="@style/Widget.KnaufWidget.AppWidget.Container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/schema_1_main_bg"
+    android:baselineAligned="false"
+    android:orientation="vertical"
+    android:theme="@style/Theme.KnaufWidget.AppWidgetContainer"
+    tools:ignore="DisableBaselineAlignment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/bellIcon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_bell" />
+
+        <ImageView
+            android:id="@+id/logoCl"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:scaleType="fitEnd"
+            app:srcCompat="@drawable/ic_main_logo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:orientation="vertical">
+
+            <TextClock
+                android:id="@+id/timeTextCl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start|center_horizontal|fill_horizontal"
+                android:layout_weight="4"
+                android:fontFamily="@font/widget_font_family"
+                android:format12Hour="HH:mm"
+                android:format24Hour="HH:mm"
+                android:gravity="center|center_horizontal"
+                android:text="12:00"
+                android:textAlignment="center"
+                android:textColor="@color/schema_1_clock_text"
+                android:textSize="14sp" />
+
+            <TextClock
+                android:id="@+id/dateTextCl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start|fill_horizontal"
+                android:layout_weight="4"
+                android:fontFamily="@font/widget_font_family"
+                android:format12Hour="dd.MM.yyyy"
+                android:format24Hour="dd.MM.yyyy"
+                android:gravity="center"
+                android:text="12.21.2022"
+                android:textAlignment="center"
+                android:textColor="@color/schema_1_clock_text"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

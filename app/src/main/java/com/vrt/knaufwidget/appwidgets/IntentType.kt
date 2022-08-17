@@ -17,12 +17,26 @@ sealed class IntentType {
         const val FX_INFO_KEY = "FX_INFO_KEY"
     }
 
+    object FXExc : IntentType() {
+        const val ACTION_FX_EXC = "FX_EXC"
+        const val FX_EXC_INFO_KEY = "FX_EXC_INFO_KEY"
+    }
+
+    object FXEr : IntentType() {
+        const val ACTION_FX_ER = "FX_ER"
+        const val FX_ER_INFO_KEY = "FX_ER_INFO_KEY"
+    }
+
     object OpenCalendar : IntentType() {
         const val ACTION_OPEN_NATIVE_CALENDAR = "ACTION_OPEN_NATIVE_CALENDAR"
     }
 
     object OpenClock : IntentType() {
         const val ACTION_OPEN_CLOCK = "ACTION_OPEN_CLOCK"
+    }
+
+    object OpenFX : IntentType() {
+        const val ACTION_OPEN_FX = "ACTION_OPEN_FX"
     }
 
     object ChangeColorSchema: IntentType() {

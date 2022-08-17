@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:description="@string/app_widget_description"
+    android:description="@string/app_widget_description_clock"
     android:initialKeyguardLayout="@layout/knauf_widget_clock"
     android:initialLayout="@layout/knauf_widget_clock"
     android:minWidth="250dp"
-    android:minHeight="40dp"
-    android:targetCellHeight="3"
-    android:previewImage="@drawable/example_appwidget_preview"
-    android:resizeMode="none"
-    android:updatePeriodMillis="1000"
+    android:minHeight="20dp"
+    android:previewImage="@drawable/clock_img"
+    android:resizeMode="vertical|horizontal"
     android:widgetCategory="home_screen" />

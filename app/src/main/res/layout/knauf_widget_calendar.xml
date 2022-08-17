@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Widget.KnaufWidget.AppWidget.Container"
     android:id="@+id/calendarRoot"
+    style="@style/Widget.KnaufWidget.AppWidget.Container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/schema_1_main_bg"
     android:orientation="vertical"
     android:theme="@style/Theme.KnaufWidget.AppWidgetContainer">
@@ -66,7 +66,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:scaleType="fitCenter"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:scaleType="fitEnd"
                 app:srcCompat="@drawable/ic_main_logo" />
         </LinearLayout>
     </LinearLayout>
@@ -93,8 +95,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="6"
-            android:gravity="center"
             android:fontFamily="@font/widget_font_family"
+            android:gravity="center"
             android:textColor="@color/black" />
 
         <ImageButton

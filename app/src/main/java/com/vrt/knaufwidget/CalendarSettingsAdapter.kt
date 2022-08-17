@@ -25,17 +25,17 @@ sealed class CalendarSettingsItem {
 
     data class Add(override val viewType: Int = ADD) : CalendarSettingsItem() {
         override var text: String = "Outlook"
-        override val color: Int = R.color.light_blue_200
+        override val color: Int = R.color.settings_activity_add
     }
 
     data class Enable(override val viewType: Int = ENABLE) : CalendarSettingsItem() {
         override var text: String = ""
-        override val color: Int = R.color.light_blue_600
+        override val color: Int = R.color.settings_activity_enable
     }
 
     data class Disable(override val viewType: Int = DISABLE) : CalendarSettingsItem() {
         override var text: String = ""
-        override val color: Int = androidx.appcompat.R.color.material_blue_grey_800
+        override val color: Int = R.color.settings_activity_disable
     }
 }
 

@@ -60,3 +60,13 @@ data class FXEntity (
     val diff: String,
     val widgetID: Int
 ): JSONMessage()
+
+@Serializable
+data class FXErrorEntity (
+    val widgetID: Int
+): JSONMessage()
+
+@Serializable
+data class FXExceptionEntity (
+    val widgetID: Int
+): JSONMessage()

@@ -38,7 +38,7 @@ object SettingsHelper {
         return month to year
     }
 
-    fun saveColorScheme(context: Context, scheme: ColorSchema) {
+    fun saveColorScheme(context: Context, scheme: ColorSchemaNew) {
         val settings: SharedPreferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE)
         settings.edit().apply {
             putInt(COLOR_SCHEME_KEY, scheme.schemeID)
@@ -46,13 +46,11 @@ object SettingsHelper {
         }
     }
 
-    fun getSavedColorScheme(context: Context) : ColorSchema {
+    fun getSavedColorScheme(context: Context) : ColorSchemaNew {
         val settings: SharedPreferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE)
         return when (settings.getInt(COLOR_SCHEME_KEY, -1)) {
-            2 -> ColorSchema.Schema2
-            3 -> ColorSchema.Schema3
-            4 -> ColorSchema.Schema4
-            else -> ColorSchema.Schema1
+            12 -> ColorSchemaNew.Schema2
+            else -> ColorSchemaNew.Schema1
         }
     }
 

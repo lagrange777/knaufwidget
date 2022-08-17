@@ -12,6 +12,17 @@
         android:layout_height="match_parent"
         android:background="@color/schema_1_main_bg">
 
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="64dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_title" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/schemaTitle"
             android:layout_width="0dp"
@@ -25,7 +36,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/calendarSettingsTitle"
@@ -59,35 +70,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:text="2"
             app:layout_constraintBottom_toBottomOf="@+id/buttonS1"
-            app:layout_constraintEnd_toStartOf="@+id/buttonS3"
-            app:layout_constraintStart_toEndOf="@+id/buttonS1"
-            app:layout_constraintTop_toTopOf="@+id/buttonS1" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonS3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="3"
-            app:layout_constraintBottom_toBottomOf="@+id/buttonS1"
-            app:layout_constraintEnd_toStartOf="@+id/buttonS4"
-            app:layout_constraintStart_toEndOf="@+id/buttonS2"
-            app:layout_constraintTop_toTopOf="@+id/buttonS1" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonS4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="4"
-            app:layout_constraintBottom_toBottomOf="@+id/buttonS1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/buttonS3"
+            app:layout_constraintStart_toEndOf="@+id/buttonS1"
             app:layout_constraintTop_toTopOf="@+id/buttonS1" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -102,6 +89,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/calendarSettingsTitle" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/imageView3"
+            app:layout_constraintStart_toStartOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:srcCompat="@drawable/ic_subtitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

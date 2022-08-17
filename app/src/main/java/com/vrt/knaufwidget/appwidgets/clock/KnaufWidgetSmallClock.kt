@@ -1,6 +1,5 @@
 package com.vrt.knaufwidget.appwidgets.clock
 
-import android.Manifest
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
@@ -11,11 +10,8 @@ import com.vrt.knaufwidget.MainActivity
 import com.vrt.knaufwidget.R
 import com.vrt.knaufwidget.appwidgets.*
 import com.vrt.knaufwidget.startClock
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
-class KnaufWidgetClock : AppWidgetProvider() {
+class KnaufWidgetSmallClock : AppWidgetProvider() {
 
     companion object {
         const val SCHEMA_UPDATE_KEY = "SCHEMA_UPDATE_CLOCK_KEY"
@@ -25,7 +21,6 @@ class KnaufWidgetClock : AppWidgetProvider() {
     private val timeText = R.id.timeTextCl
     private val dateText = R.id.dateTextCl
     private val logo = R.id.logoCl
-    private val bell = R.id.bellCl
 
     override fun onUpdate(
         context: Context?,
@@ -54,7 +49,7 @@ class KnaufWidgetClock : AppWidgetProvider() {
         }
 
         if (action == MainActivity.UPDATE_FROM_ACTIVITY) {
-            val remoteViews = RemoteViews(context.packageName, R.layout.knauf_widget_clock)
+            val remoteViews = RemoteViews(context.packageName, R.layout.knauf_widget_small_clock)
             val wIDs = intent.getIntArrayExtra(SCHEMA_UPDATE_KEY) ?: return
             wIDs.forEach { wID ->
                 updateColorSchema(remoteViews, context, wID)
@@ -70,7 +65,6 @@ class KnaufWidgetClock : AppWidgetProvider() {
         views.setTextColor(timeText, schema.clockText.invoke(context))
 
         views.setImageViewResource(logo, schema.logo)
-        views.setImageViewResource(bell, schema.bell)
         AppWidgetManager.getInstance(context).updateAppWidget(widgetID, views)
     }
 
@@ -80,10 +74,10 @@ class KnaufWidgetClock : AppWidgetProvider() {
         appWidgetId: Int
     ) {
         val pendingOpenClockIntent = buildIntent(IntentType.OpenClock, appWidgetId, context, javaClass)
-        val views = RemoteViews(context.packageName, R.layout.knauf_widget_clock)
+        val views = RemoteViews(context.packageName, R.layout.knauf_widget_small_clock)
         val w = appWidgetManager.getAppWidgetOptions(appWidgetId).getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH)
-        scaleText(views, w, getCurDateForClock(), WidgetState.Clock)
-        views.setOnClickPendingIntent(R.id.clockContainerCl, pendingOpenClockIntent)
+//        scaleText(views, w, getCurDateForClock(), WidgetState.Clock)
+        views.setOnClickPendingIntent(R.id.clockRoot, pendingOpenClockIntent)
         updateColorSchema(views, context, appWidgetId)
         appWidgetManager.updateAppWidget(appWidgetId, views)
     }

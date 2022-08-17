@@ -53,4 +53,39 @@
     <color name="schema_4_content_fx_bg">#FFFFFF</color>
     <color name="schema_4_week_number">#B3B3B3</color>
 
+
+    <!--  Color Schema 5  -->
+    <color name="schema_5_clock_text">#000000</color>
+    <color name="schema_5_main_bg">#FFFFFF</color>
+
+    <color name="schema_5_title_cal_bg">#DADADA</color>
+    <color name="schema_5_subtitle_cal_bg">#EBEBEB</color>
+    <color name="schema_5_content_cal_bg">#F5F5F5</color>
+    <color name="schema_5_week_number">#B3B3B3</color>
+
+    <color name="schema_5_title_fx_bg">#DADADA</color>
+    <color name="schema_5_content_fx_bg">#E8F1F5</color>
+
+    <!--  Color Schema 6  -->
+    <color name="schema_6_clock_text">#000000</color>
+    <color name="schema_6_main_bg">#FFFFFF</color>
+
+    <color name="schema_6_title_cal_bg">#DADADA</color>
+    <color name="schema_6_subtitle_cal_bg">#EBEBEB</color>
+    <color name="schema_6_content_cal_bg">#F5F5F5</color>
+    <color name="schema_6_week_number">#B3B3B3</color>
+
+    <color name="schema_6_title_fx_bg">#F5F5F5</color>
+    <color name="schema_6_content_fx_bg">#BED8E3</color>
+
+
+    <!-- Settings Activity -->
+    <color name="settings_activity_add">#3300AFEF</color>
+    <color name="settings_activity_enable">#00AFEF</color>
+    <color name="settings_activity_disable">#3300AFEF</color>
+
+    <color name="settings_activity_schema_enable">#BED8E3</color>
+    <color name="settings_activity_schema_disable">#E8F1F5</color>
+
+
 </resources>

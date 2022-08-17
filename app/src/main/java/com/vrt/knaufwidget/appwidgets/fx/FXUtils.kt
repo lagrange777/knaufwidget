@@ -17,11 +17,13 @@ import java.util.*
 
 
 const val FX_URI = """https://cbu.uz/ru/arkhiv-kursov-valyut/json"""
+const val FX_URI_INFO = """https://cbu.uz/ru/"""
 
 
 fun getCurDateForFX(): String {
     val t = Date()
     val df = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    df.timeZone = TimeZone.getTimeZone("Europe/Moscow")
     return df.format(t)
 }
 
@@ -37,6 +39,32 @@ private fun fillFXRow(context: Context, cells: Pair<Int, Int>, fxInfo: FXEntity)
     val remoteViews = RemoteViews(context.packageName, R.layout.knauf_widget_fx)
     remoteViews.setTextViewText(cells.first, fxInfo.rate)
     remoteViews.setTextViewText(cells.second, fxInfo.diff)
+    AppWidgetManager.getInstance(context).updateAppWidget(fxInfo.widgetID, remoteViews)
+}
+
+fun fillInfo(fxInfo: FXExceptionEntity, context: Context) {
+        fillFXRow(context, R.id.rubRateText to R.id.rubDiffText, fxInfo)
+        fillFXRow(context, R.id.usdRateText to R.id.usdDiffText, fxInfo)
+        fillFXRow(context, R.id.eurRateText to R.id.eurDiffText, fxInfo)
+}
+
+private fun fillFXRow(context: Context, cells: Pair<Int, Int>, fxInfo: FXExceptionEntity) {
+    val remoteViews = RemoteViews(context.packageName, R.layout.knauf_widget_fx)
+    remoteViews.setTextViewText(cells.first, "VOL_EXC")
+    remoteViews.setTextViewText(cells.second, "VOL_EXC")
+    AppWidgetManager.getInstance(context).updateAppWidget(fxInfo.widgetID, remoteViews)
+}
+
+fun fillInfo(fxInfo: FXErrorEntity, context: Context) {
+    fillFXRow(context, R.id.rubRateText to R.id.rubDiffText, fxInfo)
+    fillFXRow(context, R.id.usdRateText to R.id.usdDiffText, fxInfo)
+    fillFXRow(context, R.id.eurRateText to R.id.eurDiffText, fxInfo)
+}
+
+private fun fillFXRow(context: Context, cells: Pair<Int, Int>, fxInfo: FXErrorEntity) {
+    val remoteViews = RemoteViews(context.packageName, R.layout.knauf_widget_fx)
+    remoteViews.setTextViewText(cells.first, "VOL_ER")
+    remoteViews.setTextViewText(cells.second, "VOL_ER")
     AppWidgetManager.getInstance(context).updateAppWidget(fxInfo.widgetID, remoteViews)
 }
 
@@ -58,10 +86,14 @@ fun <T> askFX(
                 buildIntent(IntentType.NewFX, appWidgetId, context, javaClass, info).send()
             } catch (e: Exception) {
                 Log.d("FXTEST VOLLEY EXC", "$e")
+                val info = FXExceptionEntity(appWidgetId).toJSONObject().toString()
+                buildIntent(IntentType.FXExc, appWidgetId, context, javaClass, info).send()
             }
 
         }, { error ->
             Log.d("FXTEST VOLLEY ERROR", "$error")
+            val info = FXErrorEntity(appWidgetId).toJSONObject().toString()
+            buildIntent(IntentType.FXEr, appWidgetId, context, javaClass, info).send()
         })
     request.retryPolicy = DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 10, 0, 1f)
     request.setShouldCache(false)

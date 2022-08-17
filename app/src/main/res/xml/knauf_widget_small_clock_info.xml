@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/app_widget_description_small_clock"
+    android:initialKeyguardLayout="@layout/knauf_widget_small_clock"
+    android:initialLayout="@layout/knauf_widget_small_clock"
+    android:minWidth="120dp"
+    android:minHeight="40dp"
+    android:previewImage="@drawable/clock_img"
+    android:resizeMode="none"
+    android:widgetCategory="home_screen" />

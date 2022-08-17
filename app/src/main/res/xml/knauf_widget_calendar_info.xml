@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:description="@string/app_widget_description"
+    android:description="@string/app_widget_description_calendar"
     android:initialKeyguardLayout="@layout/knauf_widget_calendar"
     android:initialLayout="@layout/knauf_widget_calendar"
     android:minWidth="250dp"
-    android:minHeight="350dp"
-    android:previewImage="@drawable/example_appwidget_preview"
-    android:resizeMode="none"
-    android:updatePeriodMillis="1000"
+    android:minHeight="250dp"
+    android:previewImage="@drawable/calendar_img"
+    android:resizeMode="vertical|horizontal"
     android:widgetCategory="home_screen" />

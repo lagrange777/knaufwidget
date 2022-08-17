@@ -117,15 +117,15 @@ class KnaufWidgetCalendar : AppWidgetProvider() {
 
     private fun updateColorSchema(views: RemoteViews, context: Context, widgetID: Int) {
         val schema = SettingsHelper.getSavedColorScheme(context)
-        views.setInt(mainBG, ColorSchema.SET_BACKGROUND_COLOR_KEY, schema.mainBg.invoke(context))
+        views.setInt(mainBG, ColorSchemaNew.SET_BACKGROUND_COLOR_KEY, schema.mainBg.invoke(context))
 
         views.setImageViewResource(logo, schema.logo)
         views.setTextColor(dateText, schema.clockText.invoke(context))
         views.setTextColor(timeText, schema.clockText.invoke(context))
 
-        views.setInt(selector, ColorSchema.SET_BACKGROUND_COLOR_KEY, schema.titleBg.invoke(context))
-        subTitles.forEach { views.setInt(it, ColorSchema.SET_BACKGROUND_COLOR_KEY, schema.subtitleBg.invoke(context)) }
-        views.setInt(calendar, ColorSchema.SET_BACKGROUND_COLOR_KEY, schema.contentCalBg.invoke(context))
+        views.setInt(selector, ColorSchemaNew.SET_BACKGROUND_COLOR_KEY, schema.titleCalBg.invoke(context))
+        subTitles.forEach { views.setInt(it, ColorSchemaNew.SET_BACKGROUND_COLOR_KEY, schema.subtitleCalBg.invoke(context)) }
+        views.setInt(calendar, ColorSchemaNew.SET_BACKGROUND_COLOR_KEY, schema.contentCalBg.invoke(context))
 
         AppWidgetManager.getInstance(context).updateAppWidget(widgetID, views)
     }
