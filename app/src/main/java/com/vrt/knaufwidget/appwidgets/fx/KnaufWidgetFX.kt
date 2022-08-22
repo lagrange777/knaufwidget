@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.widget.RemoteViews
 import com.vrt.knaufwidget.*
 import com.vrt.knaufwidget.appwidgets.*
+import kotlinx.serialization.ExperimentalSerializationApi
 import org.json.JSONObject
 
 
@@ -46,17 +47,21 @@ class KnaufWidgetFX : AppWidgetProvider() {
         updateWidget(context, appWidgetManager, appWidgetId)
     }
 
+    @OptIn(ExperimentalSerializationApi::class)
     override fun onReceive(context: Context?, intent: Intent?) {
         super.onReceive(context, intent)
         context ?: return
         val manager = AppWidgetManager.getInstance(context)
-        manager.getAppWidgetIds(ComponentName(context, KnaufWidgetFX::class.java)).forEach {
-            askFX(context, CurrencyType.RUB, it, javaClass)
-            askFX(context, CurrencyType.USD, it, javaClass)
-            askFX(context, CurrencyType.EUR, it, javaClass)
-        }
+//        manager.getAppWidgetIds(ComponentName(context, KnaufWidgetFX::class.java)).forEach {
+//            askFX(context, CurrencyType.RUB, it, javaClass)
+//            askFX(context, CurrencyType.USD, it, javaClass)
+//            askFX(context, CurrencyType.EUR, it, javaClass)
+//        }
 
         val action = intent?.action ?: return
+
+        println("MILILOG onReceive $action")
+
         if (action == IntentType.OpenClock.ACTION_OPEN_CLOCK) {
             startClock(context)
         }

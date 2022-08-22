@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         updateTitleAndButtons()
         initOutlookClient()
         initAdapter()
+        notifyAllWidgets()
     }
 
     private fun checkPermission(callbackId: Int, permissionsIds: List<String>) {
@@ -116,14 +117,15 @@ class MainActivity : AppCompatActivity() {
             t.text = text
             Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
             val enableColor = getColor(R.color.settings_activity_schema_enable)
-            val disableColor = getColor(R.color.settings_activity_schema_disable)
+            val disableColor1 = getColor(R.color.settings_activity_schema_1_disable)
+            val disableColor2 = getColor(R.color.settings_activity_schema_2_disable)
             when (it.schemeID) {
                 12 -> {
-                    b1.setBackgroundColor(disableColor)
+                    b1.setBackgroundColor(disableColor1)
                     b2.setBackgroundColor(enableColor)
                 }
                 else -> {
-                    b2.setBackgroundColor(disableColor)
+                    b2.setBackgroundColor(disableColor2)
                     b1.setBackgroundColor(enableColor)
                 }
             }

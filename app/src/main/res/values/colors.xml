@@ -84,8 +84,10 @@
     <color name="settings_activity_enable">#00AFEF</color>
     <color name="settings_activity_disable">#3300AFEF</color>
 
-    <color name="settings_activity_schema_enable">#BED8E3</color>
-    <color name="settings_activity_schema_disable">#E8F1F5</color>
+
+    <color name="settings_activity_schema_enable">#00AFEF</color>
+    <color name="settings_activity_schema_1_disable">#E8F1F5</color>
+    <color name="settings_activity_schema_2_disable">#BED8E3</color>
 
 
 </resources>
