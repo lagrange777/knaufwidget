@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:background="@color/schema_1_main_bg">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView3"
             android:layout_width="64dp"
             android:layout_height="20dp"
@@ -90,7 +90,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/calendarSettingsTitle" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -98,6 +98,26 @@
             app:layout_constraintStart_toStartOf="@+id/imageView3"
             app:layout_constraintTop_toBottomOf="@+id/imageView3"
             app:srcCompat="@drawable/ic_subtitle" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonTranslationRU"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="RU"
+            app:layout_constraintEnd_toStartOf="@+id/buttonTranslationUZ"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonTranslationUZ"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="UZ"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

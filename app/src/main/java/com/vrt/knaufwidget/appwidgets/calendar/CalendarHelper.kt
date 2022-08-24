@@ -80,28 +80,29 @@ class KnaufMonth(
             R.id.week5,
             R.id.week6
         )
-        val monthNames: List<String> = listOf(
-            "Январь",
-            "Февраль",
-            "Март",
-            "Апрель",
-            "Май",
-            "Июнь",
-            "Июль",
-            "Август",
-            "Сентябрь",
-            "Октябрь",
-            "Ноябрь",
-            "Декабрь"
+        val monthNames: List<(String) -> String> = listOf(
+            { TranslationHelper.januaryLabel.invoke(it) },
+            { TranslationHelper.februaryLabel.invoke(it) },
+            { TranslationHelper.marchLabel.invoke(it) },
+            { TranslationHelper.aprilLabel.invoke(it) },
+            { TranslationHelper.mayLabel.invoke(it) },
+            { TranslationHelper.juneLabel.invoke(it) },
+            { TranslationHelper.julyLabel.invoke(it) },
+            { TranslationHelper.augustLabel.invoke(it) },
+            { TranslationHelper.septemberLabel.invoke(it) },
+            { TranslationHelper.octoberLabel.invoke(it) },
+            { TranslationHelper.novemberLabel.invoke(it) },
+            { TranslationHelper.decemberLabel.invoke(it) }
         )
 
     }
 
     val curTitle: String
         get() = run {
-            val m = calendar.get(Calendar.MONTH).apply { monthNames[this] }
+            val langCode = SettingsHelper.getSavedTranslationCode(context)
+            val m = calendar.get(Calendar.MONTH)
             val y = calendar.get(Calendar.YEAR).toString()
-            "${monthNames[m]} $y"
+            "${monthNames[m].invoke(langCode)} $y"
         }
 
     val weeksRange: List<Int>

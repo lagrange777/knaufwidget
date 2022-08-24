@@ -81,8 +81,20 @@ class MainActivity : AppCompatActivity() {
         val b1 = findViewById<AppCompatButton>(R.id.buttonS1)
         val b2 = findViewById<AppCompatButton>(R.id.buttonS2)
 
+        val bRU = findViewById<AppCompatButton>(R.id.buttonTranslationRU)
+        val bUZ = findViewById<AppCompatButton>(R.id.buttonTranslationUZ)
+
         b1.setOnClickListener { onSchemaBtnClick(ColorSchemaNew.Schema1) }
         b2.setOnClickListener { onSchemaBtnClick(ColorSchemaNew.Schema2) }
+
+        bRU.setOnClickListener { onTranslationBtnClick(Translation.RU.langCode) }
+        bUZ.setOnClickListener { onTranslationBtnClick(Translation.UZ.langCode) }
+    }
+
+    private fun onTranslationBtnClick(langCode: String) {
+        SettingsHelper.saveTranslationCode(this, langCode)
+        notifyAllWidgets()
+        updateTitleAndButtons()
     }
 
     private fun onSchemaBtnClick(schema: ColorSchemaNew) {
@@ -109,13 +121,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateTitleAndButtons() {
-        val t = findViewById<AppCompatTextView>(R.id.schemaTitle)
+        val schemaTitle = findViewById<AppCompatTextView>(R.id.schemaTitle)
+        val settingsTitle = findViewById<AppCompatTextView>(R.id.calendarSettingsTitle)
         val b1 = findViewById<AppCompatButton>(R.id.buttonS1)
         val b2 = findViewById<AppCompatButton>(R.id.buttonS2)
+        val bRU = findViewById<AppCompatButton>(R.id.buttonTranslationRU)
+        val bUZ = findViewById<AppCompatButton>(R.id.buttonTranslationUZ)
+
         SettingsHelper.getSavedColorScheme(this).let {
-            val text = "Выбрана цветовая схема ${it.schemaName}"
-            t.text = text
-            Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+            val langCode = SettingsHelper.getSavedTranslationCode(this)
+
+            val schemaText = TranslationHelper.colorSchemaLabel.invoke(langCode)
+                .replace("%", it.schemaName.toString())
+            schemaTitle.text = schemaText
+            Toast.makeText(this, schemaText, Toast.LENGTH_SHORT).show()
+
+            val settingsText = TranslationHelper.calendarSettingsLabel.invoke(langCode)
+            settingsTitle.text = settingsText
             val enableColor = getColor(R.color.settings_activity_schema_enable)
             val disableColor1 = getColor(R.color.settings_activity_schema_1_disable)
             val disableColor2 = getColor(R.color.settings_activity_schema_2_disable)
@@ -127,6 +149,18 @@ class MainActivity : AppCompatActivity() {
                 else -> {
                     b2.setBackgroundColor(disableColor2)
                     b1.setBackgroundColor(enableColor)
+                }
+            }
+            val selectedLangColor = getColor(R.color.settings_activity_enable)
+            val unselectedLangColor = getColor(R.color.settings_activity_disable)
+            when (langCode) {
+                Translation.UZ.langCode -> {
+                    bUZ.setBackgroundColor(selectedLangColor)
+                    bRU.setBackgroundColor(unselectedLangColor)
+                }
+                else -> {
+                    bRU.setBackgroundColor(selectedLangColor)
+                    bUZ.setBackgroundColor(unselectedLangColor)
                 }
             }
         }

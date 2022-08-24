@@ -86,14 +86,14 @@ fun <T> askFX(
                 buildIntent(IntentType.NewFX, appWidgetId, context, javaClass, info).send()
             } catch (e: Exception) {
                 Log.d("FXTEST VOLLEY EXC", "$e")
-                val info = FXExceptionEntity(appWidgetId).toJSONObject().toString()
-                buildIntent(IntentType.FXExc, appWidgetId, context, javaClass, info).send()
+//                val info = FXExceptionEntity(appWidgetId).toJSONObject().toString()
+//                buildIntent(IntentType.FXExc, appWidgetId, context, javaClass, info).send()
             }
 
         }, { error ->
             Log.d("FXTEST VOLLEY ERROR", "$error")
-            val info = FXErrorEntity(appWidgetId).toJSONObject().toString()
-            buildIntent(IntentType.FXEr, appWidgetId, context, javaClass, info).send()
+//            val info = FXErrorEntity(appWidgetId).toJSONObject().toString()
+//            buildIntent(IntentType.FXEr, appWidgetId, context, javaClass, info).send()
         })
     request.retryPolicy = DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 10, 0, 1f)
     request.setShouldCache(false)

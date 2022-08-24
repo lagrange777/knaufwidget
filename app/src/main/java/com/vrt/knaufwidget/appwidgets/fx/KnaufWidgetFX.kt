@@ -51,20 +51,13 @@ class KnaufWidgetFX : AppWidgetProvider() {
     override fun onReceive(context: Context?, intent: Intent?) {
         super.onReceive(context, intent)
         context ?: return
-        val manager = AppWidgetManager.getInstance(context)
-//        manager.getAppWidgetIds(ComponentName(context, KnaufWidgetFX::class.java)).forEach {
-//            askFX(context, CurrencyType.RUB, it, javaClass)
-//            askFX(context, CurrencyType.USD, it, javaClass)
-//            askFX(context, CurrencyType.EUR, it, javaClass)
-//        }
 
         val action = intent?.action ?: return
-
-        println("MILILOG onReceive $action")
 
         if (action == IntentType.OpenClock.ACTION_OPEN_CLOCK) {
             startClock(context)
         }
+
         if (action == IntentType.OpenFX.ACTION_OPEN_FX) {
             startFX(context)
         }
@@ -102,10 +95,14 @@ class KnaufWidgetFX : AppWidgetProvider() {
 
     private fun updateColorSchema(views: RemoteViews, context: Context, widgetID: Int) {
         val schema = SettingsHelper.getSavedColorScheme(context)
+        val langCode = SettingsHelper.getSavedTranslationCode(context)
         views.setInt(mainBG, ColorSchemaNew.SET_BACKGROUND_COLOR_KEY, schema.mainBg.invoke(context))
         views.setTextColor(dateText, schema.clockText.invoke(context))
         views.setTextColor(timeText, schema.clockText.invoke(context))
         views.setImageViewResource(logo, schema.logo)
+        views.setTextViewText(R.id.curTitle, TranslationHelper.currencyLabel.invoke(langCode))
+        views.setTextViewText(R.id.rateTitle, TranslationHelper.rateLabel.invoke(langCode))
+        views.setTextViewText(R.id.diffTitle, TranslationHelper.changeLabel.invoke(langCode))
 
         views.setInt(curTitle, ColorSchemaNew.SET_BACKGROUND_COLOR_KEY, schema.titleFXBg.invoke(context))
         views.setInt(rateTitle, ColorSchemaNew.SET_BACKGROUND_COLOR_KEY, schema.titleFXBg.invoke(context))

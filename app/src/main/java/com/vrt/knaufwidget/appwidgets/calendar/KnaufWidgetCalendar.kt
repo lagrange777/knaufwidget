@@ -8,11 +8,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.RemoteViews
-import com.vrt.knaufwidget.MainActivity
-import com.vrt.knaufwidget.R
+import com.vrt.knaufwidget.*
 import com.vrt.knaufwidget.appwidgets.*
-import com.vrt.knaufwidget.startClock
-import com.vrt.knaufwidget.startNativeCalendar
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -117,11 +114,21 @@ class KnaufWidgetCalendar : AppWidgetProvider() {
 
     private fun updateColorSchema(views: RemoteViews, context: Context, widgetID: Int) {
         val schema = SettingsHelper.getSavedColorScheme(context)
+        val langCode = SettingsHelper.getSavedTranslationCode(context)
         views.setInt(mainBG, ColorSchemaNew.SET_BACKGROUND_COLOR_KEY, schema.mainBg.invoke(context))
 
         views.setImageViewResource(logo, schema.logo)
         views.setTextColor(dateText, schema.clockText.invoke(context))
         views.setTextColor(timeText, schema.clockText.invoke(context))
+        views.setTextViewText(R.id.subTitle2, TranslationHelper.mondayLabel.invoke(langCode))
+        views.setTextViewText(R.id.subTitle3, TranslationHelper.tuesdayLabel.invoke(langCode))
+        views.setTextViewText(R.id.subTitle4, TranslationHelper.wednesdayLabel.invoke(langCode))
+        views.setTextViewText(R.id.subTitle5, TranslationHelper.thursdayLabel.invoke(langCode))
+        views.setTextViewText(R.id.subTitle6, TranslationHelper.fridayLabel.invoke(langCode))
+        views.setTextViewText(R.id.subTitle7, TranslationHelper.saturdayLabel.invoke(langCode))
+        views.setTextViewText(R.id.subTitle8, TranslationHelper.sundayLabel.invoke(langCode))
+        val helper = KnaufMonth(context)
+        views.setTextViewText(R.id.curYearText, helper.curTitle)
 
         views.setInt(selector, ColorSchemaNew.SET_BACKGROUND_COLOR_KEY, schema.titleCalBg.invoke(context))
         subTitles.forEach { views.setInt(it, ColorSchemaNew.SET_BACKGROUND_COLOR_KEY, schema.subtitleCalBg.invoke(context)) }

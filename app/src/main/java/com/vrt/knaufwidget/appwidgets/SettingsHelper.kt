@@ -5,6 +5,7 @@ import android.content.Context.MODE_PRIVATE
 
 import android.content.SharedPreferences
 import android.icu.util.Calendar
+import com.vrt.knaufwidget.Translation
 
 
 object SettingsHelper {
@@ -15,6 +16,7 @@ object SettingsHelper {
     private const val YEAR_KEY = "KNAUF_WIDGET_SETTINGS_YEAR_KEY"
     private const val ACC_KEY = "KNAUF_WIDGET_SETTINGS_ACC_KEY"
     private const val TOKEN_KEY = "KNAUF_WIDGET_SETTINGS_TOKEN_KEY"
+    private const val TRANSLATION_KEY = "KNAUF_WIDGET_SETTINGS_TRANSLATION_KEY"
 
     fun saveCurrentCalendarState(context: Context, month: Int, year: Int) {
         val settings: SharedPreferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE)
@@ -78,5 +80,18 @@ object SettingsHelper {
     fun getSavedOutlookToken(context: Context) : String? {
         val settings: SharedPreferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE)
         return settings.getString(TOKEN_KEY, null)
+    }
+
+    fun saveTranslationCode(context: Context, langCode: String) {
+        val settings: SharedPreferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+        settings.edit().apply {
+            putString(TRANSLATION_KEY, langCode)
+            apply()
+        }
+    }
+
+    fun getSavedTranslationCode(context: Context) : String {
+        val settings: SharedPreferences = context.getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+        return settings.getString(TRANSLATION_KEY, Translation.RU.langCode) ?: Translation.RU.langCode
     }
 }

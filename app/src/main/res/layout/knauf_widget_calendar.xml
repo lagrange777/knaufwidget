@@ -140,7 +140,6 @@
             android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="Пн"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -154,7 +153,6 @@
             android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="Вт"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -168,7 +166,6 @@
             android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="Ср"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -182,7 +179,6 @@
             android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="Чт"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -196,7 +192,6 @@
             android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="Пт"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -210,7 +205,6 @@
             android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="Сб"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -224,7 +218,6 @@
             android:fontFamily="@font/widget_font_family"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="Вс"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
